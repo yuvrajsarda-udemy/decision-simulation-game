@@ -7,6 +7,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   const navItems = [
     {
+      icon: Home,
+      label: "Home",
+      href: "/home",
+      active: location.pathname === "/home"
+    },
+    {
       icon: GamepadIcon,
       label: "Games",
       href: "/games",
@@ -17,12 +23,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       label: "Courses",
       href: "/courses",
       active: location.pathname === "/courses"
-    },
-    {
-      icon: Home,
-      label: "Home",
-      href: "/home",
-      active: location.pathname === "/home"
     },
     {
       icon: UserCircle,

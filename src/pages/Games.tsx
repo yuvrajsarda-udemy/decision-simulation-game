@@ -32,13 +32,16 @@ const Games = () => {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center my-8">
-          <h1 className="text-3xl font-bold mb-4">🎮 Decision Games</h1>
+          <h1 className="text-3xl font-bold mb-4">🎮 Games</h1>
           <p className="text-muted-foreground text-lg">
-            Choose your adventure and test your decision-making skills
+            Learn through fun, interactive games!
           </p>
         </div>
 
         {/* Games Grid */}
+        <h2 className='text-2xl font-bold mb-4'>
+          Life Simulation Games
+        </h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {availableScenarios.map((scenario) => {
             const savedGame = hasSavedGame(scenario.id);
@@ -106,7 +109,7 @@ const Games = () => {
 
         {/* Coming Soon Section */}
         <div className="mt-12">
-          <h2 className="text-2xl font-bold mb-6 text-center">More Games Coming Soon</h2>
+          <h2 className="text-2xl font-bold mb-6">More Games Coming Soon</h2>
           <div className="grid gap-4 md:grid-cols-3">
             <Card className="opacity-50">
               <CardHeader>
