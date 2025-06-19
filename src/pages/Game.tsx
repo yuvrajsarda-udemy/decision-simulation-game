@@ -196,6 +196,7 @@ const Game = () => {
         scenario={currentScenario}
         onDecision={makeDecision}
         timeUnit={gameState.timeUnit}
+        timeUnitType={gameConfig.timeUnitType}
       />
     );
   };
@@ -235,6 +236,7 @@ const Game = () => {
             gameState={gameState}
             currentScenario={currentScenario}
             allScenarios={gameConfig.scenarios}
+            timeUnitType={gameConfig.timeUnitType}
           />
         )}
       </div>

@@ -850,6 +850,7 @@ export const fitflowGame: Game = {
   mission: "Build a thriving fitness platform while maintaining your health, team morale, and mental peace. Every decision matters in this competitive market.",
   goal: (winMoney: number, winQuality: number) => 
     `Reach $${(winMoney / 1000000).toFixed(1)}M in revenue with a high-quality product (${winQuality}%+) to achieve startup success.`,
+  timeUnitType: "Day",
   // Game Configuration
   initialGameState: {
     timeUnit: 1,

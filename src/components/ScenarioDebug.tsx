@@ -5,9 +5,10 @@ interface ScenarioDebugProps {
   gameState: GameState;
   currentScenario: Scenario;
   allScenarios: Scenario[];
+  timeUnitType: string;
 }
 
-export const ScenarioDebug = ({ gameState, currentScenario, allScenarios }: ScenarioDebugProps) => {
+export const ScenarioDebug = ({ gameState, currentScenario, allScenarios, timeUnitType }: ScenarioDebugProps) => {
   if (process.env.NODE_ENV !== 'development') {
     return null; // Don't show in production
   }
@@ -38,7 +39,7 @@ export const ScenarioDebug = ({ gameState, currentScenario, allScenarios }: Scen
         <div>Category: {currentScenario.category || 'none'}</div>
         <div>Weight: {currentScenario.weight || 1}</div>
         <div>Seen Scenarios: {seenCount}/{totalScenarios} ({seenPercentage}%)</div>
-        <div>Time Unit: {gameState?.timeUnit ?? 0}</div>
+        <div>{timeUnitType}: {gameState?.timeUnit ?? 0}</div>
       </CardContent>
     </Card>
   );

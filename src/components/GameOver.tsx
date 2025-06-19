@@ -81,7 +81,7 @@ export const GameOver = ({ endReason, finalStats, onRestart, gameConfig }: GameO
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="text-center">
-          <div className="text-3xl font-bold mb-2">Time Unit {finalStats.timeUnit}</div>
+          <div className="text-3xl font-bold mb-2">{gameConfig.timeUnitType} {finalStats.timeUnit}</div>
           <div className="text-lg mb-4">
             Final Score: <span className={`font-bold ${rating.color}`}>{score}</span>
           </div>

@@ -70,6 +70,7 @@ export interface Game {
   vision: string;
   mission: string;
   goal: (winMoney: number, winQuality: number) => string;
+  timeUnitType: string; // e.g., "Week", "Day", "Month"
   // Game Configuration
   initialGameState: GameState;
   scenarios: Scenario[];

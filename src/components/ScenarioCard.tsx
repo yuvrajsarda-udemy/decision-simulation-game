@@ -7,9 +7,10 @@ interface ScenarioCardProps {
   scenario: Scenario;
   onDecision: (decision: Decision) => void;
   timeUnit: number;
+  timeUnitType: string;
 }
 
-export const ScenarioCard = ({ scenario, onDecision, timeUnit }: ScenarioCardProps) => {
+export const ScenarioCard = ({ scenario, onDecision, timeUnit, timeUnitType }: ScenarioCardProps) => {
   const handleDecision = (decision: Decision) => {
     onDecision(decision);
   };
@@ -28,7 +29,7 @@ export const ScenarioCard = ({ scenario, onDecision, timeUnit }: ScenarioCardPro
     <Card className="mb-6">
       <CardHeader>
         <CardTitle className="text-xl sm:text-2xl font-bold">
-          Time Unit {timeUnit} • {scenario.title}
+          {timeUnitType} {timeUnit} • {scenario.title}
         </CardTitle>
       </CardHeader>
       <CardContent className="pt-0">
