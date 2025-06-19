@@ -23,7 +23,7 @@ export const WelcomeScreen = ({ onStart, scenarioConfig }: WelcomeScreenProps) =
   const description = getScenarioDescription(scenarioConfig.id);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/10 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/10 flex items-center justify-center">
       <Card className="max-w-2xl w-full">
         <CardHeader className="text-center">
           <div className="text-6xl mb-4">{getScenarioEmoji(scenarioConfig.id)}</div>

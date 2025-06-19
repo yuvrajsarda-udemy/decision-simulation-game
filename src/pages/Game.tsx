@@ -214,7 +214,7 @@ const Game = () => {
 
       {/* Stats - Only show below scenario card and not on game over */}
       {!showWelcome && !showScenarioSelector && currentScreen === 'decision' && !gameState.gameOver && (
-        <div className="px-4 pb-20 pt-4">
+        <div className="px-4 pb-20">
           <GameStats gameState={gameState} />
         </div>
       )}
