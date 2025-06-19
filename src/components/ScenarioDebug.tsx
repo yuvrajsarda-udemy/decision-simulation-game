@@ -38,7 +38,7 @@ export const ScenarioDebug = ({ gameState, currentScenario, allScenarios }: Scen
         <div>Category: {currentScenario.category || 'none'}</div>
         <div>Weight: {currentScenario.weight || 1}</div>
         <div>Seen Scenarios: {seenCount}/{totalScenarios} ({seenPercentage}%)</div>
-        <div>Day: {gameState?.day ?? 0}</div>
+        <div>Time Unit: {gameState?.timeUnit ?? 0}</div>
       </CardContent>
     </Card>
   );

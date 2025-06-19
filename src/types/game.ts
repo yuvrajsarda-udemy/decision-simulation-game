@@ -1,11 +1,11 @@
 export interface GameState {
+  timeUnit: number;  // Generic time unit (could be days, weeks, months etc)
   money: number;
   health: number;
   mentalPeace: number;
   teamMorale: number;
   productQuality: number;
   users: number;
-  day: number;
   currentScenario: number;
   gameOver: boolean;
   endReason: string;
@@ -44,8 +44,8 @@ export interface Scenario {
     maxTeamMorale?: number;
     minProductQuality?: number;
     maxProductQuality?: number;
-    minDay?: number;
-    maxDay?: number;
+    minTimeUnit?: number;
+    maxTimeUnit?: number;
     requiredPreviousScenarios?: number[];
     excludedPreviousScenarios?: number[];
   };
@@ -85,4 +85,10 @@ export interface Game {
     money: number;
     productQuality: number;
   };
+}
+
+export interface ScenarioConditions {
+  minTimeUnit?: number;
+  maxTimeUnit?: number;
+  // ... existing code ...
 }

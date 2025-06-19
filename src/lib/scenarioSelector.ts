@@ -93,9 +93,9 @@ export class ScenarioSelector {
       if (conditions.minProductQuality !== undefined && gameState.productQuality < conditions.minProductQuality) return false;
       if (conditions.maxProductQuality !== undefined && gameState.productQuality > conditions.maxProductQuality) return false;
 
-      // Check day conditions
-      if (conditions.minDay !== undefined && gameState.day < conditions.minDay) return false;
-      if (conditions.maxDay !== undefined && gameState.day > conditions.maxDay) return false;
+      // Check time unit conditions
+      if (conditions.minTimeUnit !== undefined && gameState.timeUnit < conditions.minTimeUnit) return false;
+      if (conditions.maxTimeUnit !== undefined && gameState.timeUnit > conditions.maxTimeUnit) return false;
 
       // Check required previous scenarios
       if (conditions.requiredPreviousScenarios && conditions.requiredPreviousScenarios.length > 0) {
@@ -157,11 +157,12 @@ export class ScenarioSelector {
         weight *= 2;
       }
 
-      // Reduce weight for recently seen scenarios
+      // Check if scenario was seen recently
       const recentIndex = gameState.scenarioHistory.lastIndexOf(scenario.id);
       if (recentIndex !== -1) {
-        const daysSinceSeen = gameState.scenarioHistory.length - recentIndex;
-        if (daysSinceSeen < 5) {
+        const timeUnitsSinceSeen = gameState.scenarioHistory.length - recentIndex;
+        if (timeUnitsSinceSeen < 5) {
+          // Reduce weight for recently seen scenarios
           weight *= 0.3;
         }
       }

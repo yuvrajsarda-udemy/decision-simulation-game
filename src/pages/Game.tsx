@@ -85,8 +85,8 @@ const Game = () => {
     newState.productQuality += decision.effects.productQuality || 0;
     newState.users += decision.effects.users || 0;
     
-    // Advance week
-    newState.day += 1;
+    // Advance time unit
+    newState.timeUnit += 1;
     
     // Track current scenario in history
     const currentScenarioId = gameConfig.scenarios[gameState.currentScenario].id;
@@ -195,7 +195,7 @@ const Game = () => {
       <ScenarioCard 
         scenario={currentScenario}
         onDecision={makeDecision}
-        weekNumber={gameState.day}
+        timeUnit={gameState.timeUnit}
       />
     );
   };

@@ -51,7 +51,7 @@ export const yourGame: Game = {
     teamMorale: 100,
     productQuality: 50,
     users: 0,
-    day: 1,
+    timeUnit: 1,
     currentScenario: 0,
     gameOver: false,
     endReason: '',
@@ -117,7 +117,7 @@ The game state includes these properties that you can use in your scenarios:
 - `teamMorale`: Team happiness
 - `productQuality`: Quality of your product/service
 - `users`: Number of customers/users
-- `day`: Current day/week
+- `timeUnit`: Current time unit (could be days, weeks, months etc)
 - `currentScenario`: Index of current scenario
 - `gameOver`: Whether the game has ended
 - `endReason`: Reason for game ending

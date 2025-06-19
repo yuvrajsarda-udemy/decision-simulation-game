@@ -1,16 +1,16 @@
 import { Scenario, GameState, Game } from '@/types/game';
 
 export const fitflowScenarios: Scenario[] = [
-  // EARLY GAME (Days 1-10) - Foundation Building
+  // EARLY GAME (Time Units 1-10) - Foundation Building
   {
     id: 1,
     title: "The First Line of Code",
-    description: "You're sitting in your apartment with a laptop and a dream. You've decided to build FitFlow, a fitness app that will revolutionize how people track their workouts. Where do you start?",
+    description: "You open your code editor, ready to start building FitFlow. The cursor blinks, waiting for your first line of code. You've been thinking about this fitness app idea for months - now it's time to make it real.",
     category: 'early',
-    weight: 1.0,
+    weight: 1.5,
     conditions: {
-      minDay: 1,
-      maxDay: 3,
+      minTimeUnit: 1,
+      maxTimeUnit: 3,
       excludedPreviousScenarios: [1] // Can only happen once
     },
     decisions: [
@@ -38,8 +38,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'early',
     weight: 1.0,
     conditions: {
-      minDay: 2,
-      maxDay: 5,
+      minTimeUnit: 2,
+      maxTimeUnit: 5,
       minProductQuality: 20,
       requiredPreviousScenarios: [1], // Must have started coding
       excludedPreviousScenarios: [2] // Can only happen once
@@ -69,8 +69,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'status',
     weight: 1.0,
     conditions: {
-      minDay: 7,
-      maxDay: 8,
+      minTimeUnit: 7,
+      maxTimeUnit: 8,
       requiredPreviousScenarios: [1], // Must have started coding
       excludedPreviousScenarios: [22] // Can only happen once
     },
@@ -83,8 +83,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'early',
     weight: 1.0,
     conditions: {
-      minDay: 4,
-      maxDay: 8,
+      minTimeUnit: 4,
+      maxTimeUnit: 8,
       minProductQuality: 30,
       requiredPreviousScenarios: [2], // Must have had first user feedback
       excludedPreviousScenarios: [3] // Can only happen once
@@ -128,8 +128,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'early',
     weight: 1.2,
     conditions: {
-      minDay: 5,
-      maxDay: 10,
+      minTimeUnit: 5,
+      maxTimeUnit: 10,
       minUsers: 30,
       maxUsers: 100,
       requiredPreviousScenarios: [3], // Must have launched on App Store
@@ -160,8 +160,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'opportunity',
     weight: 1.3,
     conditions: {
-      minDay: 6,
-      maxDay: 12,
+      minTimeUnit: 6,
+      maxTimeUnit: 12,
       minUsers: 40,
       maxUsers: 150,
       requiredPreviousScenarios: [3], // Must have launched on App Store
@@ -186,7 +186,7 @@ export const fitflowScenarios: Scenario[] = [
     ]
   },
 
-  // MID GAME (Days 10-30) - Growth & Challenges
+  // MID GAME (Time Units 10-30) - Growth & Challenges
   {
     id: 6,
     title: "Server Costs Hit",
@@ -194,8 +194,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'crisis',
     weight: 1.4,
     conditions: {
-      minDay: 10,
-      maxDay: 20,
+      minTimeUnit: 10,
+      maxTimeUnit: 20,
       minUsers: 150,
       maxUsers: 300,
       minMoney: 500,
@@ -227,8 +227,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'growth',
     weight: 1.2,
     conditions: {
-      minDay: 12,
-      maxDay: 25,
+      minTimeUnit: 12,
+      maxTimeUnit: 25,
       minUsers: 200,
       maxUsers: 400,
       requiredPreviousScenarios: [3], // Must have launched
@@ -259,8 +259,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'opportunity',
     weight: 1.3,
     conditions: {
-      minDay: 14,
-      maxDay: 25,
+      minTimeUnit: 14,
+      maxTimeUnit: 25,
       minUsers: 200,
       maxUsers: 400,
       minProductQuality: 50,
@@ -292,8 +292,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'crisis',
     weight: 1.5,
     conditions: {
-      minDay: 15,
-      maxDay: 30,
+      minTimeUnit: 15,
+      maxTimeUnit: 30,
       minUsers: 250,
       maxUsers: 500,
       requiredPreviousScenarios: [3], // Must have launched
@@ -324,8 +324,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'status',
     weight: 1.0,
     conditions: {
-      minDay: 30,
-      maxDay: 32,
+      minTimeUnit: 30,
+      maxTimeUnit: 32,
       requiredPreviousScenarios: [3], // Must have launched
       excludedPreviousScenarios: [24] // Can only happen once
     },
@@ -338,8 +338,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'status',
     weight: 1.0,
     conditions: {
-      minDay: 60,
-      maxDay: 62,
+      minTimeUnit: 60,
+      maxTimeUnit: 62,
       requiredPreviousScenarios: [24], // Must have had first month review
       excludedPreviousScenarios: [30] // Can only happen once
     },
@@ -352,8 +352,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'status',
     weight: 1.0,
     conditions: {
-      minDay: 90,
-      maxDay: 92,
+      minTimeUnit: 90,
+      maxTimeUnit: 92,
       requiredPreviousScenarios: [30], // Must have had second month review
       excludedPreviousScenarios: [31] // Can only happen once
     },
@@ -366,8 +366,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'status',
     weight: 1.0,
     conditions: {
-      minDay: 120,
-      maxDay: 122,
+      minTimeUnit: 120,
+      maxTimeUnit: 122,
       requiredPreviousScenarios: [31], // Must have had third month review
       excludedPreviousScenarios: [32] // Can only happen once
     },
@@ -380,8 +380,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'crisis',
     weight: 1.6,
     conditions: {
-      minDay: 18,
-      maxDay: 35,
+      minTimeUnit: 18,
+      maxTimeUnit: 35,
       minUsers: 200,
       maxUsers: 500,
       maxHealth: 70,
@@ -413,8 +413,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'opportunity',
     weight: 1.4,
     conditions: {
-      minDay: 20,
-      maxDay: 40,
+      minTimeUnit: 20,
+      maxTimeUnit: 40,
       minUsers: 300,
       maxUsers: 800,
       requiredPreviousScenarios: [3], // Must have launched
@@ -445,8 +445,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'growth',
     weight: 1.3,
     conditions: {
-      minDay: 25,
-      maxDay: 45,
+      minTimeUnit: 25,
+      maxTimeUnit: 45,
       minUsers: 400,
       maxUsers: 1000,
       minMoney: 1000,
@@ -478,8 +478,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'crisis',
     weight: 1.5,
     conditions: {
-      minDay: 28,
-      maxDay: 50,
+      minTimeUnit: 28,
+      maxTimeUnit: 50,
       minUsers: 400,
       maxUsers: 1000,
       requiredPreviousScenarios: [3], // Must have launched
@@ -553,7 +553,7 @@ export const fitflowScenarios: Scenario[] = [
     conditions: {
       minHealth: 90,
       minMentalPeace: 90,
-      minDay: 40, // Should be later in the game
+      minTimeUnit: 40, // Should be later in the game
       requiredPreviousScenarios: [9], // Must have faced burnout warning
       excludedPreviousScenarios: [28] // Can only happen once
     },
@@ -582,8 +582,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'opportunity',
     weight: 1.4,
     conditions: {
-      minDay: 35,
-      maxDay: 60,
+      minTimeUnit: 35,
+      maxTimeUnit: 60,
       minUsers: 600,
       maxUsers: 1500,
       minMoney: 3000,
@@ -615,8 +615,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'growth',
     weight: 1.3,
     conditions: {
-      minDay: 40,
-      maxDay: 70,
+      minTimeUnit: 40,
+      maxTimeUnit: 70,
       minUsers: 800,
       maxUsers: 2000,
       requiredPreviousScenarios: [3], // Must have launched
@@ -647,8 +647,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'opportunity',
     weight: 1.4,
     conditions: {
-      minDay: 45,
-      maxDay: 80,
+      minTimeUnit: 45,
+      maxTimeUnit: 80,
       minUsers: 1000,
       maxUsers: 3000,
       minProductQuality: 70,
@@ -680,8 +680,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'crisis',
     weight: 1.5,
     conditions: {
-      minDay: 50,
-      maxDay: 90,
+      minTimeUnit: 50,
+      maxTimeUnit: 90,
       minUsers: 1200,
       maxUsers: 4000,
       maxTeamMorale: 80,
@@ -713,8 +713,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'growth',
     weight: 1.3,
     conditions: {
-      minDay: 55,
-      maxDay: 100,
+      minTimeUnit: 55,
+      maxTimeUnit: 100,
       minUsers: 1500,
       maxUsers: 5000,
       requiredPreviousScenarios: [3], // Must have launched
@@ -745,8 +745,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'late',
     weight: 1.2,
     conditions: {
-      minDay: 60,
-      maxDay: 120,
+      minTimeUnit: 60,
+      maxTimeUnit: 120,
       minUsers: 2000,
       maxUsers: 10000,
       minMoney: 10000,
@@ -778,8 +778,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'late',
     weight: 1.1,
     conditions: {
-      minDay: 70,
-      maxDay: 150,
+      minTimeUnit: 70,
+      maxTimeUnit: 150,
       minUsers: 3000,
       maxUsers: 15000,
       minMoney: 20000,
@@ -811,8 +811,8 @@ export const fitflowScenarios: Scenario[] = [
     category: 'late',
     weight: 1.0,
     conditions: {
-      minDay: 80,
-      maxDay: 200,
+      minTimeUnit: 80,
+      maxTimeUnit: 200,
       minUsers: 5000,
       maxUsers: 50000,
       minMoney: 30000,
@@ -852,13 +852,13 @@ export const fitflowGame: Game = {
     `Reach $${(winMoney / 1000000).toFixed(1)}M in revenue with a high-quality product (${winQuality}%+) to achieve startup success.`,
   // Game Configuration
   initialGameState: {
+    timeUnit: 1,
     money: 5000,
-    health: 90,
-    mentalPeace: 90,
-    teamMorale: 80,
-    productQuality: 30,
+    health: 100,
+    mentalPeace: 100,
+    teamMorale: 100,
+    productQuality: 10,
     users: 0,
-    day: 1,
     currentScenario: 0,
     gameOver: false,
     endReason: '',

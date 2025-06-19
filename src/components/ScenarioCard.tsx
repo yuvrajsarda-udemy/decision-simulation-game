@@ -6,10 +6,10 @@ import { ScenarioOptionCard } from '@/components/ScenarioOptionCard';
 interface ScenarioCardProps {
   scenario: Scenario;
   onDecision: (decision: Decision) => void;
-  weekNumber: number;
+  timeUnit: number;
 }
 
-export const ScenarioCard = ({ scenario, onDecision, weekNumber }: ScenarioCardProps) => {
+export const ScenarioCard = ({ scenario, onDecision, timeUnit }: ScenarioCardProps) => {
   const handleDecision = (decision: Decision) => {
     onDecision(decision);
   };
@@ -28,7 +28,7 @@ export const ScenarioCard = ({ scenario, onDecision, weekNumber }: ScenarioCardP
     <Card className="mb-6">
       <CardHeader>
         <CardTitle className="text-xl sm:text-2xl font-bold">
-          Week {weekNumber} • {scenario.title}
+          Time Unit {timeUnit} • {scenario.title}
         </CardTitle>
       </CardHeader>
       <CardContent className="pt-0">

@@ -8,8 +8,8 @@ export const restaurantScenarios: Scenario[] = [
     category: 'early',
     weight: 1.2,
     conditions: {
-      minDay: 1,
-      maxDay: 5
+      minTimeUnit: 1,
+      maxTimeUnit: 5
     },
     decisions: [
       {
@@ -36,8 +36,8 @@ export const restaurantScenarios: Scenario[] = [
     category: 'early',
     weight: 1.1,
     conditions: {
-      minDay: 2,
-      maxDay: 8
+      minTimeUnit: 2,
+      maxTimeUnit: 8
     },
     decisions: [
       {
@@ -66,7 +66,7 @@ export const restaurantScenarios: Scenario[] = [
     conditions: {
       minUsers: 30,
       maxUsers: 100,
-      minDay: 10
+      minTimeUnit: 10
     },
     decisions: [
       {
@@ -124,7 +124,7 @@ export const restaurantScenarios: Scenario[] = [
     conditions: {
       minUsers: 40,
       maxUsers: 120,
-      minDay: 15
+      minTimeUnit: 15
     },
     decisions: [
       {
@@ -154,7 +154,7 @@ export const restaurantScenarios: Scenario[] = [
       minUsers: 80,
       maxUsers: 200,
       minMoney: 5000,
-      minDay: 25
+      minTimeUnit: 25
     },
     decisions: [
       {
@@ -183,7 +183,7 @@ export const restaurantScenarios: Scenario[] = [
     conditions: {
       minUsers: 60,
       maxUsers: 180,
-      minDay: 20
+      minTimeUnit: 20
     },
     decisions: [
       {
@@ -213,7 +213,7 @@ export const restaurantScenarios: Scenario[] = [
       minUsers: 100,
       maxUsers: 250,
       minProductQuality: 70,
-      minDay: 30
+      minTimeUnit: 30
     },
     decisions: [
       {
@@ -242,7 +242,7 @@ export const restaurantScenarios: Scenario[] = [
     conditions: {
       minUsers: 80,
       maxUsers: 200,
-      minDay: 20
+      minTimeUnit: 20
     },
     decisions: [
       {
@@ -272,7 +272,7 @@ export const restaurantScenarios: Scenario[] = [
       minUsers: 150,
       maxUsers: 500,
       minMoney: 10000,
-      minDay: 40
+      minTimeUnit: 40
     },
     decisions: [
       {
@@ -296,8 +296,8 @@ export const restaurantScenarios: Scenario[] = [
 
 export const restaurantGame: Game = {
   id: 'restaurant',
-  name: 'Restaurant Empire',
-  description: 'Build your restaurant from a small eatery to a culinary empire.',
+  name: 'Restaurant Empire: From Kitchen to Kingdom',
+  description: 'Build your restaurant empire from a single location to a culinary phenomenon.',
   // UI Metadata
   emoji: '🍽️',
   colors: 'from-orange-500/10 to-red-500/10 border-orange-200',
@@ -307,13 +307,13 @@ export const restaurantGame: Game = {
     `Reach $${(winMoney / 1000).toFixed(0)}K in revenue with exceptional food quality (${winQuality}%+) to become a culinary success.`,
   // Game Configuration
   initialGameState: {
+    timeUnit: 1,
     money: 20000,
     health: 100,
     mentalPeace: 100,
     teamMorale: 100,
     productQuality: 50,
     users: 0,
-    day: 1,
     currentScenario: 0,
     gameOver: false,
     endReason: '',
