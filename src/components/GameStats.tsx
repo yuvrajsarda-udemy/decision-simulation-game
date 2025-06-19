@@ -11,7 +11,7 @@ export const GameStats = ({ gameState }: GameStatsProps) => {
   const formatMoney = (amount: number) => {
     if (amount >= 1000000) {
       return `$${(amount / 1000000).toFixed(1)}M`;
-    } else if (amount >= 1000) {
+    } else if (amount >= 10000) {
       return `$${(amount / 1000).toFixed(0)}K`;
     }
     return `$${amount}`;

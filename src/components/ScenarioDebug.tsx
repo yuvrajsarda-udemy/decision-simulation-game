@@ -39,12 +39,6 @@ export const ScenarioDebug = ({ gameState, currentScenario, allScenarios }: Scen
         <div>Weight: {currentScenario.weight || 1}</div>
         <div>Seen Scenarios: {seenCount}/{totalScenarios} ({seenPercentage}%)</div>
         <div>Day: {gameState?.day ?? 0}</div>
-        <div>Money: ${gameState?.money ?? 0}</div>
-        <div>Users: {gameState?.users ?? 0}</div>
-        <div>Health: {gameState?.health ?? 0}%</div>
-        <div>Mental Peace: {gameState?.mentalPeace ?? 0}%</div>
-        <div>Team Morale: {gameState?.teamMorale ?? 0}%</div>
-        <div>Product Quality: {gameState?.productQuality ?? 0}%</div>
       </CardContent>
     </Card>
   );

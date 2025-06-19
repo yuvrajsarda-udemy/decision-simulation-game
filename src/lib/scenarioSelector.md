@@ -18,22 +18,33 @@ Each scenario can have conditions that determine when it's available:
 - **Required previous scenarios**: `requiredPreviousScenarios`
 - **Excluded previous scenarios**: `excludedPreviousScenarios`
 
-### 2. Scenario Categories
+### 2. Scenario Uniqueness System
+Most scenarios are designed to happen only once per playthrough, creating a linear story progression:
+
+- **`excludedPreviousScenarios: [id]`**: Prevents a scenario from appearing if it has already been seen
+- **`requiredPreviousScenarios: [id]`**: Ensures logical story progression by requiring specific scenarios to have occurred first
+
+This system ensures that:
+- Each milestone in the startup journey happens exactly once
+- Story events follow a logical sequence (can't get user feedback before starting to code)
+- Players experience a complete, non-repetitive narrative arc
+
+### 3. Scenario Categories
 Scenarios are categorized to help with selection:
-- `early`: Early game scenarios (days 1-10)
-- `mid`: Mid game scenarios (days 10-30)
-- `late`: Late game scenarios (days 30+)
+- `early`: Early game scenarios (days 1-10) - Foundation building
+- `mid`: Mid game scenarios (days 10-30) - Growth and challenges
+- `late`: Late game scenarios (days 30+) - Scaling and success
 - `crisis`: Scenarios that appear when player is struggling
 - `opportunity`: Scenarios that appear when player is doing well
 - `growth`: Scenarios focused on expansion and scaling
 
-### 3. Weighted Selection
+### 4. Weighted Selection
 Each scenario has a base weight that gets adjusted based on:
 - **Unseen scenarios**: 2x weight boost for scenarios the player hasn't seen
 - **Recent history**: 0.3x weight for scenarios seen in the last 5 days
 - **Game state**: Additional adjustments based on current player stats
 
-### 4. Crisis and Opportunity Detection
+### 5. Crisis and Opportunity Detection
 The system automatically detects when to show crisis or opportunity scenarios:
 - **Crisis triggers**: Low health (<30), low money (<1000), low team morale (<30), etc.
 - **Opportunity triggers**: High stats across the board (>70 for most metrics)
@@ -43,27 +54,61 @@ The system automatically detects when to show crisis or opportunity scenarios:
 ```typescript
 {
   id: 5,
-  title: "Burnout Warning Signs",
-  description: "You've been coding 12 hours a day for 3 months...",
-  category: 'crisis',
-  weight: 1.6,
+  title: "The Coffee Shop Meeting",
+  description: "You're working at your local coffee shop when a stranger notices your FitFlow app...",
+  category: 'opportunity',
+  weight: 1.3,
   conditions: {
-    minUsers: 200,
-    maxUsers: 400,
-    minDay: 20,
-    maxHealth: 70  // Only shows when health is already low
+    minDay: 6,
+    maxDay: 12,
+    minUsers: 40,
+    maxUsers: 150,
+    requiredPreviousScenarios: [3], // Must have launched on App Store
+    excludedPreviousScenarios: [5]  // Can only happen once
   },
   decisions: [...]
 }
 ```
 
+## FitFlow Game Structure
+
+The FitFlow game demonstrates the full potential of this system with 20 unique scenarios:
+
+### Early Game (Days 1-10) - Foundation Building
+- **Scenario 1**: The First Line of Code - Starting the development journey
+- **Scenario 2**: Your First User - Getting initial feedback
+- **Scenario 3**: The App Store Decision - Launching the MVP
+- **Scenario 4**: The First Bad Review - Handling early criticism
+- **Scenario 5**: The Coffee Shop Meeting - Meeting an influencer
+
+### Mid Game (Days 10-30) - Growth & Challenges
+- **Scenario 6**: Server Costs Hit - First scaling challenge
+- **Scenario 7**: The Feature Request Flood - Managing user demands
+- **Scenario 8**: The Competitor Appears - Facing competition
+- **Scenario 9**: The Burnout Warning - Health and work-life balance
+- **Scenario 10**: The Viral Moment - Handling sudden growth
+- **Scenario 11**: The Team Decision - First hiring decision
+- **Scenario 12**: The Data Breach Scare - Security challenges
+
+### Late Game (Days 30+) - Scaling & Success
+- **Scenario 13**: The Investment Pitch - VC funding opportunity
+- **Scenario 14**: The Platform Expansion - Android development
+- **Scenario 15**: The Corporate Partnership - B2B opportunities
+- **Scenario 16**: The Team Conflict - Managing team dynamics
+- **Scenario 17**: The International Launch - Global expansion
+- **Scenario 18**: The Acquisition Offer - Exit opportunity
+- **Scenario 19**: The Legacy Decision - Long-term planning
+- **Scenario 20**: The Future of Fitness - Industry leadership
+
 ## Benefits
 
-1. **Variety**: Players see different scenarios each playthrough
-2. **Relevance**: Scenarios appear when they make sense contextually
-3. **Progression**: Early scenarios only appear early, late scenarios only appear late
-4. **Responsiveness**: Crisis scenarios appear when the player is struggling
-5. **Discovery**: Unseen scenarios are prioritized to show new content
+1. **Story-Driven Experience**: Each scenario builds on previous ones, creating a cohesive narrative
+2. **No Repetition**: Players see each milestone exactly once per playthrough
+3. **Logical Progression**: Events happen in realistic startup sequence
+4. **Replayability**: Different decisions lead to different outcomes, even with same scenarios
+5. **Variety**: 20 unique scenarios provide substantial content without repetition
+6. **Responsiveness**: Crisis scenarios appear when the player is struggling
+7. **Discovery**: Unseen scenarios are prioritized to show new content
 
 ## Configuration Options
 
@@ -79,5 +124,6 @@ In development mode, a debug panel shows:
 - Seen vs total scenarios
 - Current game state
 - Selection factors
+- Scenario dependencies and exclusions
 
-This helps understand why specific scenarios are being chosen. 
+This helps understand why specific scenarios are being chosen and ensures the story progression is working correctly. 

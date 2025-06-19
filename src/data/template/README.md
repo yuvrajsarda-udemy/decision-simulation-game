@@ -54,7 +54,9 @@ export const yourGame: Game = {
     day: 1,
     currentScenario: 0,
     gameOver: false,
-    endReason: ''
+    endReason: '',
+    seenScenarios: [],
+    scenarioHistory: []
   },
   scenarios: yourGameScenarios,
   gameOverConditions: {
@@ -119,6 +121,8 @@ The game state includes these properties that you can use in your scenarios:
 - `currentScenario`: Index of current scenario
 - `gameOver`: Whether the game has ended
 - `endReason`: Reason for game ending
+- `seenScenarios`: Array of scenario IDs that have been seen
+- `scenarioHistory`: Array of scenario IDs in order they were played
 
 ## Game Properties
 

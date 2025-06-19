@@ -48,7 +48,12 @@ const Game = () => {
   useEffect(() => {
     const savedState = sessionStorage.getItem(`${gameConfig.id}Game`);
     if (savedState) {
-      setGameState(JSON.parse(savedState));
+      const parsedState = JSON.parse(savedState);
+      setGameState({
+        ...parsedState,
+        seenScenarios: parsedState.seenScenarios || [],
+        scenarioHistory: parsedState.scenarioHistory || []
+      });
       setShowWelcome(false);
     }
   }, [gameConfig.id]);
@@ -69,7 +74,11 @@ const Game = () => {
   };
 
   const makeDecision = (decision: Decision) => {
-    const newState = { ...gameState };
+    const newState = { 
+      ...gameState,
+      seenScenarios: gameState.seenScenarios || [],
+      scenarioHistory: gameState.scenarioHistory || []
+    };
     
     // Apply decision effects
     newState.money += decision.effects.money || 0;
