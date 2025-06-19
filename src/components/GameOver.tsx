@@ -1,7 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { GameState } from '@/types/game';
-import { ScenarioConfig } from '@/data/fitflow';
+import { GameState, ScenarioConfig } from '@/types/game';
 import { Banknote, Heart, ArrowUp } from 'lucide-react';
 
 interface GameOverProps {

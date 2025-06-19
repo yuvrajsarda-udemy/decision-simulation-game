@@ -1,5 +1,6 @@
 import { ScenarioConfig } from '../data/fitflow';
 import { fitflowConfig } from '../data/fitflow';
+
 import { restaurantConfig } from '../data/restaurant';
 
 export interface ScenarioManager {
