@@ -63,6 +63,20 @@ export const fitflowScenarios: Scenario[] = [
     ]
   },
   {
+    id: 22,
+    title: "First Week Milestone",
+    description: "You've been working on FitFlow for a week now. Looking at your code editor, you can't help but smile - what started as a simple idea is becoming real. Your prototype is taking shape, and you're learning something new every day.",
+    category: 'status',
+    weight: 1.0,
+    conditions: {
+      minDay: 7,
+      maxDay: 8,
+      requiredPreviousScenarios: [1], // Must have started coding
+      excludedPreviousScenarios: [22] // Can only happen once
+    },
+    decisions: [] // Empty decisions array indicates this is a status update
+  },
+  {
     id: 3,
     title: "The App Store Decision",
     description: "Your app is ready for its first release! You need to decide how to launch on the App Store. The basic version works, but you could add more features first.",
@@ -92,6 +106,20 @@ export const fitflowScenarios: Scenario[] = [
         effects: { productQuality: 20, mentalPeace: -10, users: 10 }
       }
     ]
+  },
+  {
+    id: 23,
+    title: "First 100 Users",
+    description: "🎉 Milestone achieved: 100 users! You open your analytics dashboard and stare at the number in disbelief. That's one hundred real people using something you built. Each user icon represents someone whose fitness journey now includes your app. It's a small number in the grand scheme of things, but right now it feels huge.",
+    category: 'status',
+    weight: 1.0,
+    conditions: {
+      minUsers: 100,
+      maxUsers: 120,
+      requiredPreviousScenarios: [3], // Must have launched
+      excludedPreviousScenarios: [23] // Can only happen once
+    },
+    decisions: []
   },
   {
     id: 4,
@@ -225,6 +253,39 @@ export const fitflowScenarios: Scenario[] = [
     ]
   },
   {
+    id: 21,
+    title: "The Tech Blog Feature",
+    description: "TechCrunch wants to feature FitFlow in their 'Rising Stars' series! They're impressed by your user growth and unique approach. This could be huge exposure, but they need information and screenshots by tomorrow.",
+    category: 'opportunity',
+    weight: 1.3,
+    conditions: {
+      minDay: 14,
+      maxDay: 25,
+      minUsers: 200,
+      maxUsers: 400,
+      minProductQuality: 50,
+      requiredPreviousScenarios: [3], // Must have launched on App Store
+      excludedPreviousScenarios: [21] // Can only happen once
+    },
+    decisions: [
+      {
+        text: "Work overnight on a perfect pitch",
+        description: "Polish the app, prepare detailed metrics, and craft a compelling story",
+        effects: { users: 150, mentalPeace: -10, health: -5, productQuality: 8 }
+      },
+      {
+        text: "Share your authentic journey",
+        description: "Be honest about your challenges and vision for the future",
+        effects: { users: 100, mentalPeace: 5, teamMorale: 10 }
+      },
+      {
+        text: "Focus on user testimonials",
+        description: "Let your happy users tell the story through their experiences",
+        effects: { users: 80, mentalPeace: 8, productQuality: 5 }
+      }
+    ]
+  },
+  {
     id: 8,
     title: "The Competitor Appears",
     description: "A new app called 'FitBuddy' just launched with almost identical features to yours. They have better marketing and are getting featured in fitness blogs. Your growth has slowed.",
@@ -255,6 +316,62 @@ export const fitflowScenarios: Scenario[] = [
         effects: { teamMorale: 10, mentalPeace: 8, users: 15 }
       }
     ]
+  },
+  {
+    id: 24,
+    title: "First Month Review",
+    description: "📊 30 Days of FitFlow\n\nYou take a moment to reflect on your first month as a startup founder. Your sleep schedule is questionable, your coffee consumption has doubled, but seeing users post about their fitness progress makes it all worth it. You've learned more in the past month than in the previous year. The road ahead is long, but you're no longer just dreaming - you're building.",
+    category: 'status',
+    weight: 1.0,
+    conditions: {
+      minDay: 30,
+      maxDay: 32,
+      requiredPreviousScenarios: [3], // Must have launched
+      excludedPreviousScenarios: [24] // Can only happen once
+    },
+    decisions: []
+  },
+  {
+    id: 30,
+    title: "Second Month Review",
+    description: "📈 60 Days of Growth\n\nTwo months in, and FitFlow is gaining momentum. Your analytics dashboard shows steady user growth, and the App Store reviews are mostly positive. The late-night debugging sessions are paying off, and your early users are becoming your biggest advocates. There's still a long way to go, but you're building something people genuinely want to use.",
+    category: 'status',
+    weight: 1.0,
+    conditions: {
+      minDay: 60,
+      maxDay: 62,
+      requiredPreviousScenarios: [24], // Must have had first month review
+      excludedPreviousScenarios: [30] // Can only happen once
+    },
+    decisions: []
+  },
+  {
+    id: 31,
+    title: "Third Month Review",
+    description: "🚀 90 Days of Evolution\n\nThree months have transformed your idea into a real business. You've survived the early challenges, built a small but dedicated team, and your user base keeps growing. The fitness industry is starting to notice FitFlow, and competitors are watching. What began in your apartment is now a startup with real potential.",
+    category: 'status',
+    weight: 1.0,
+    conditions: {
+      minDay: 90,
+      maxDay: 92,
+      requiredPreviousScenarios: [30], // Must have had second month review
+      excludedPreviousScenarios: [31] // Can only happen once
+    },
+    decisions: []
+  },
+  {
+    id: 32,
+    title: "Fourth Month Review",
+    description: "💫 120 Days of Impact\n\nFour months in, and FitFlow has become more than just an app - it's a community. Your users are sharing their fitness journeys, trainers are recommending you to their clients, and investors are starting to notice. The challenges are bigger now, but so are the opportunities. You're not just surviving anymore; you're ready to thrive.",
+    category: 'status',
+    weight: 1.0,
+    conditions: {
+      minDay: 120,
+      maxDay: 122,
+      requiredPreviousScenarios: [31], // Must have had third month review
+      excludedPreviousScenarios: [32] // Can only happen once
+    },
+    decisions: []
   },
   {
     id: 9,
@@ -385,6 +502,76 @@ export const fitflowScenarios: Scenario[] = [
         effects: { mentalPeace: 3, users: 5 }
       }
     ]
+  },
+  {
+    id: 25,
+    title: "First $1000 Revenue",
+    description: "💰 You've made your first $1,000! It may not be enough to quit your day job yet, but seeing that number in your Stripe dashboard feels surreal. Some people value your creation enough to pay for it. You screenshot the milestone - this one's going in the founder journey album.",
+    category: 'status',
+    weight: 1.0,
+    conditions: {
+      minMoney: 1000,
+      maxMoney: 1200,
+      requiredPreviousScenarios: [3], // Must have launched
+      excludedPreviousScenarios: [25] // Can only happen once
+    },
+    decisions: []
+  },
+  {
+    id: 26,
+    title: "Product Quality Milestone",
+    description: "⭐ Your latest user satisfaction survey shows a 90% approval rating! The late nights spent fixing bugs and polishing the UI are paying off. Users are praising the app's reliability, intuitive design, and helpful features. Your commitment to quality is becoming your competitive advantage.",
+    category: 'status',
+    weight: 1.0,
+    conditions: {
+      minProductQuality: 90,
+      requiredPreviousScenarios: [3], // Must have launched
+      excludedPreviousScenarios: [26] // Can only happen once
+    },
+    decisions: []
+  },
+  {
+    id: 27,
+    title: "Team Spirit High",
+    description: "🎉 The office is buzzing with energy! Your team just wrapped up a successful feature launch, and everyone's celebrating. The whiteboard is filled with user stories, the Slack channels are full of positive feedback, and someone ordered pizza. These are the moments that make startup life worth it.",
+    category: 'status',
+    weight: 1.0,
+    conditions: {
+      minTeamMorale: 90,
+      minUsers: 500, // Should have a decent user base
+      requiredPreviousScenarios: [11], // Must have hired team
+      excludedPreviousScenarios: [27] // Can only happen once
+    },
+    decisions: []
+  },
+  {
+    id: 28,
+    title: "Work-Life Balance Achievement",
+    description: "🧘‍♂️ You've found your rhythm! After months of chaos, you've established a sustainable routine. Morning workouts, regular breaks, and actually using your standing desk. Your friends have noticed you're more present, and your code quality has improved. Who said you can't be a successful founder and have a life?",
+    category: 'status',
+    weight: 1.0,
+    conditions: {
+      minHealth: 90,
+      minMentalPeace: 90,
+      minDay: 40, // Should be later in the game
+      requiredPreviousScenarios: [9], // Must have faced burnout warning
+      excludedPreviousScenarios: [28] // Can only happen once
+    },
+    decisions: []
+  },
+  {
+    id: 29,
+    title: "Community Milestone",
+    description: "💪 FitFlow's community is thriving! The subreddit has 5,000 members, your Discord is active 24/7, and users are creating workout guides for each other. You scroll through the success stories - weight loss journeys, strength gains, improved confidence. Your app isn't just software anymore; it's changing lives.",
+    category: 'status',
+    weight: 1.0,
+    conditions: {
+      minUsers: 1000,
+      minProductQuality: 80,
+      requiredPreviousScenarios: [3], // Must have launched
+      excludedPreviousScenarios: [29] // Can only happen once
+    },
+    decisions: []
   },
 
   // LATE GAME (Days 30+) - Scaling & Success

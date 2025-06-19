@@ -3,7 +3,7 @@ import { Scenario, GameState } from '@/types/game';
 export interface ScenarioSelectionOptions {
   forceRandom?: boolean;
   biasTowardsUnseen?: boolean;
-  categoryPreference?: 'early' | 'mid' | 'late' | 'crisis' | 'opportunity' | 'growth';
+  categoryPreference?: 'early' | 'mid' | 'late' | 'crisis' | 'opportunity' | 'growth' | 'status';
 }
 
 export class ScenarioSelector {

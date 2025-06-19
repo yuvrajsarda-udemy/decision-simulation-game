@@ -82,12 +82,13 @@ The FitFlow game demonstrates the full potential of this system with 20 unique s
 - **Scenario 5**: The Coffee Shop Meeting - Meeting an influencer
 
 ### Mid Game (Days 10-30) - Growth & Challenges
-- **Scenario 6**: Server Costs Hit - First scaling challenge
-- **Scenario 7**: The Feature Request Flood - Managing user demands
-- **Scenario 8**: The Competitor Appears - Facing competition
-- **Scenario 9**: The Burnout Warning - Health and work-life balance
-- **Scenario 10**: The Viral Moment - Handling sudden growth
-- **Scenario 11**: The Team Decision - First hiring decision
+- **Scenario 6**: The Server Costs Hit - Infrastructure scaling
+- **Scenario 7**: The Feature Request Flood - User feedback management
+- **Scenario 21**: The Tech Blog Feature - Media exposure opportunity
+- **Scenario 8**: The Competitor Appears - Market competition
+- **Scenario 9**: The Burnout Warning - Work-life balance
+- **Scenario 10**: The Viral Moment - Sudden growth spike
+- **Scenario 11**: The Team Decision - First hiring choice
 - **Scenario 12**: The Data Breach Scare - Security challenges
 
 ### Late Game (Days 30+) - Scaling & Success
@@ -106,9 +107,28 @@ The FitFlow game demonstrates the full potential of this system with 20 unique s
 2. **No Repetition**: Players see each milestone exactly once per playthrough
 3. **Logical Progression**: Events happen in realistic startup sequence
 4. **Replayability**: Different decisions lead to different outcomes, even with same scenarios
-5. **Variety**: 20 unique scenarios provide substantial content without repetition
+5. **Variety**: Mix of decision points and status updates keeps the game engaging
 6. **Responsiveness**: Crisis scenarios appear when the player is struggling
 7. **Discovery**: Unseen scenarios are prioritized to show new content
+8. **Milestone Feedback**: Status scenarios celebrate achievements and provide narrative context
+
+## Scenario Types
+
+### Decision Scenarios
+- Require player choices
+- Have effects on game stats
+- Drive the main gameplay
+
+### Status Scenarios
+- No decisions required
+- Celebrate milestones (users, revenue, time)
+- Provide narrative context and reflection
+- Help pace the game and mark progress
+- Examples:
+  - First week milestone
+  - Reaching 100 users
+  - First $1000 in revenue
+  - Monthly reviews
 
 ## Configuration Options
 

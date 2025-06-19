@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Scenario, Decision } from '@/types/game';
 import { ScenarioOptionCard } from '@/components/ScenarioOptionCard';
 
@@ -13,6 +14,16 @@ export const ScenarioCard = ({ scenario, onDecision, weekNumber }: ScenarioCardP
     onDecision(decision);
   };
 
+  const handleContinue = () => {
+    // For status scenarios with no decisions, create a dummy decision with no effects
+    const dummyDecision: Decision = {
+      text: "Continue",
+      description: "Continue to the next scenario",
+      effects: {}
+    };
+    onDecision(dummyDecision);
+  };
+
   return (
     <Card className="mb-6">
       <CardHeader>
@@ -25,13 +36,23 @@ export const ScenarioCard = ({ scenario, onDecision, weekNumber }: ScenarioCardP
           {scenario.description}
         </div>
         <div className="space-y-3">
-          {scenario.decisions.map((decision, index) => (
-            <ScenarioOptionCard
-              key={index}
-              decision={decision}
-              onDecision={handleDecision}
-            />
-          ))}
+          {scenario.decisions.length > 0 ? (
+            scenario.decisions.map((decision, index) => (
+              <ScenarioOptionCard
+                key={index}
+                decision={decision}
+                onDecision={handleDecision}
+              />
+            ))
+          ) : (
+            <Button 
+              onClick={handleContinue}
+              className="w-full"
+              size="lg"
+            >
+              Continue
+            </Button>
+          )}
         </div>
       </CardContent>
     </Card>

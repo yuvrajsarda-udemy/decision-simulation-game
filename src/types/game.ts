@@ -50,10 +50,10 @@ export interface Scenario {
     excludedPreviousScenarios?: number[];
   };
   weight?: number;
-  category?: 'early' | 'mid' | 'late' | 'crisis' | 'opportunity' | 'growth';
+  category?: 'early' | 'mid' | 'late' | 'crisis' | 'opportunity' | 'growth' | 'status';
 }
 
-export type ScreenType = 'decision' | 'event' | 'status' | 'summary';
+export type ScreenType = 'decision' | 'welcome' | 'gameover';
 
 export interface GameScreen {
   type: ScreenType;

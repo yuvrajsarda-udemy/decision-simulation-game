@@ -1,18 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { GameStats } from '@/components/GameStats';
+import { ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { ScenarioCard } from '@/components/ScenarioCard';
 import { GameOver } from '@/components/GameOver';
-import { EventScreen } from '@/components/EventScreen';
-import { StatusScreen } from '@/components/StatusScreen';
-import { SummaryScreen } from '@/components/SummaryScreen';
 import { WelcomeScreen } from '@/components/WelcomeScreen';
+import { GameStats } from '@/components/GameStats';
 import { ScenarioDebug } from '@/components/ScenarioDebug';
-import { gameManager, getAvailableGames } from '@/lib/gameManager';
 import { ScenarioSelector } from '@/lib/scenarioSelector';
-import { GameState, Decision, ScreenType } from '@/types/game';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, RotateCcw, XCircle } from 'lucide-react';
+import { Decision, GameState, ScreenType } from '@/types/game';
+import { gameManager, getAvailableGames } from '@/lib/gameManager';
 
 const Game = () => {
   const { gameId } = useParams<{ gameId: string }>();
@@ -112,9 +109,8 @@ const Game = () => {
     // Find the index of the selected scenario
     newState.currentScenario = gameConfig.scenarios.findIndex(s => s.id === nextScenario.id);
     
-    // Determine next screen type
-    const nextScreen = determineNextScreen(newState.day);
-    setCurrentScreen(nextScreen);
+    // Always show scenario card
+    setCurrentScreen('decision');
     
     // Check game over conditions using game config
     const { gameOverConditions, winConditions } = gameConfig;
@@ -145,13 +141,6 @@ const Game = () => {
     newState.users = Math.max(0, newState.users);
     
     setGameState(newState);
-  };
-
-  const determineNextScreen = (week: number): ScreenType => {
-    if (week % 4 === 0) return 'summary'; // Monthly summary
-    if (week % 3 === 0) return 'event'; // Random events
-    if (week % 2 === 0) return 'status'; // Status updates
-    return 'decision'; // Default to decision
   };
 
   const restartGame = () => {
@@ -201,30 +190,14 @@ const Game = () => {
       );
     }
 
-    switch (currentScreen) {
-      case 'decision':
-        return (
-          <ScenarioCard 
-            scenario={currentScenario}
-            onDecision={makeDecision}
-            weekNumber={gameState.day}
-          />
-        );
-      case 'event':
-        return <EventScreen onContinue={handleContinue} />;
-      case 'status':
-        return <StatusScreen gameState={gameState} onContinue={handleContinue} />;
-      case 'summary':
-        return <SummaryScreen gameState={gameState} onContinue={handleContinue} />;
-      default:
-        return (
-          <ScenarioCard 
-            scenario={currentScenario}
-            onDecision={makeDecision}
-            weekNumber={gameState.day}
-          />
-        );
-    }
+    // Always show scenario card for both decisions and status updates
+    return (
+      <ScenarioCard 
+        scenario={currentScenario}
+        onDecision={makeDecision}
+        weekNumber={gameState.day}
+      />
+    );
   };
 
   return (
