@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { getAvailableScenarios } from '@/lib/scenarioManager';
 import { Link } from 'react-router-dom';
+import { RotateCcw, Play, ArrowRight } from 'lucide-react';
 
 const Games = () => {
   const availableScenarios = getAvailableScenarios();
@@ -28,6 +29,16 @@ const Games = () => {
     }
   };
 
+  const hasSavedGame = (scenarioId: string) => {
+    return sessionStorage.getItem(`${scenarioId}Game`) !== null;
+  };
+
+  const handleRestartGame = (scenarioId: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    sessionStorage.removeItem(`${scenarioId}Game`);
+    window.location.href = `/games/${scenarioId}`;
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/10 p-4">
       <div className="max-w-4xl mx-auto">
@@ -41,12 +52,13 @@ const Games = () => {
 
         {/* Games Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {availableScenarios.map((scenario) => (
-            <Card 
-              key={scenario.id}
-              className={`cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-105 bg-gradient-to-br ${getScenarioColor(scenario.id)}`}
-            >
-              <Link to={`/games/${scenario.id}`}>
+          {availableScenarios.map((scenario) => {
+            const savedGame = hasSavedGame(scenario.id);
+            return (
+              <Card 
+                key={scenario.id}
+                className={`transition-all duration-200 hover:shadow-lg bg-gradient-to-br ${getScenarioColor(scenario.id)}`}
+              >
                 <CardHeader>
                   <div className="flex items-center gap-3">
                     <span className="text-3xl">{getScenarioEmoji(scenario.id)}</span>
@@ -72,16 +84,38 @@ const Games = () => {
                       <span>Win Target:</span>
                       <span className="font-medium">${scenario.winConditions.money.toLocaleString()}</span>
                     </div>
-                    <div className="pt-2">
-                      <Button className="w-full" variant="outline">
-                        Play Now
-                      </Button>
+                    <div className="pt-2 space-y-2">
+                      {savedGame ? (
+                        <>
+                          <Link to={`/games/${scenario.id}`}>
+                            <Button className="w-full" variant="default">
+                              <Play className="w-4 h-4 mr-2" />
+                              Continue Game
+                            </Button>
+                          </Link>
+                          <Button 
+                            className="w-full" 
+                            variant="outline"
+                            onClick={(e) => handleRestartGame(scenario.id, e)}
+                          >
+                            <RotateCcw className="w-4 h-4 mr-2" />
+                            Start Fresh
+                          </Button>
+                        </>
+                      ) : (
+                        <Link to={`/games/${scenario.id}`}>
+                          <Button className="w-full" variant="default">
+                            <ArrowRight className="w-4 h-4 mr-2" />
+                            Start Game
+                          </Button>
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </CardContent>
-              </Link>
-            </Card>
-          ))}
+              </Card>
+            );
+          })}
         </div>
 
         {/* Coming Soon Section */}

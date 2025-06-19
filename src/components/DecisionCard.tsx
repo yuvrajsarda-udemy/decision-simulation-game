@@ -74,13 +74,10 @@ export const DecisionCard = ({ scenario, onDecision }: DecisionCardProps) => {
 
   return (
     <Card className="mb-6">
-      <CardHeader>
-        <CardTitle className="text-xl">{scenario.title}</CardTitle>
-        <CardDescription className="text-base leading-relaxed">
+      <CardContent className="pt-6">
+        <div className="text-base text-muted-foreground leading-relaxed mb-6">
           {scenario.description}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
+        </div>
         <div className="space-y-3">
           {scenario.decisions.map((decision, index) => (
             <Button
@@ -92,9 +89,9 @@ export const DecisionCard = ({ scenario, onDecision }: DecisionCardProps) => {
             >
               <div className="w-full">
                 <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="font-medium mb-2 break-words">{decision.text}</div>
-                    <div className="text-sm text-muted-foreground mb-3 break-words">
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium mb-2 break-words whitespace-normal">{decision.text}</div>
+                    <div className="text-sm text-muted-foreground mb-3 break-words whitespace-normal overflow-hidden">
                       {decision.description}
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -103,7 +100,7 @@ export const DecisionCard = ({ scenario, onDecision }: DecisionCardProps) => {
                           <Badge 
                             key={type} 
                             variant="secondary" 
-                            className="flex items-center gap-1 transition-colors duration-200"
+                            className="flex items-center gap-1 transition-colors duration-200 whitespace-nowrap"
                           >
                             {getEffectIcon(type, value)}
                             <span className="capitalize">{type.replace(/([A-Z])/g, ' $1').trim()}</span>

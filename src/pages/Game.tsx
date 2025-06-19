@@ -193,58 +193,39 @@ const Game = () => {
       {/* Header */}
       {!showWelcome && !showScenarioSelector && (
         <div className="p-4 text-left">
-          <div className="flex justify-between items-start">
-            <div className="flex items-center gap-4">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => navigate('/games')}
-                className="text-muted-foreground hover:text-foreground"
-              >
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Games
-              </Button>
-              <div>
-                <p className="text-sm text-primary font-medium mb-1">
-                  Simulation: {scenarioConfig.name}
-                </p>
-                <h1 className="text-2xl font-bold text-foreground">
-                  Week {gameState.day} • {currentScenario.title}
-                </h1>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={restartGame}
-                className="text-muted-foreground hover:text-foreground"
-              >
-                <RotateCcw className="w-4 h-4 mr-2" />
-                Restart
-              </Button>
-              <button
-                onClick={handleShowScenarioSelector}
-                className="text-sm text-primary hover:underline"
-              >
-                Change Scenario
-              </button>
+          <div className="flex flex-col gap-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate('/games')}
+              className="text-muted-foreground hover:text-foreground self-start"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Games
+            </Button>
+            <div className="space-y-2">
+              <p className="text-sm text-primary font-medium">
+                Simulation: {scenarioConfig.name}
+              </p>
+              <h1 className="text-xl sm:text-2xl font-bold text-foreground">
+                Week {gameState.day} • {currentScenario.title}
+              </h1>
             </div>
           </div>
         </div>
       )}
 
-      {/* Stats - Compact */}
+      {/* Main Content */}
+      <div className="flex-1 px-4">
+        {renderCurrentScreen()}
+      </div>
+
+      {/* Stats - Moved below main content */}
       {!showWelcome && !showScenarioSelector && (
-        <div className="px-4">
+        <div className="px-4 pb-20 pt-4">
           <GameStats gameState={gameState} />
         </div>
       )}
-
-      {/* Main Content */}
-      <div className="flex-1 px-4 pb-20">
-        {renderCurrentScreen()}
-      </div>
     </div>
   );
 };

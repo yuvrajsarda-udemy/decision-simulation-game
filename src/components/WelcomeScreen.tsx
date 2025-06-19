@@ -45,18 +45,18 @@ export const WelcomeScreen = ({ onStart, scenarioConfig }: WelcomeScreenProps) =
   const description = getScenarioDescription(scenarioConfig.id);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6 p-2 sm:p-0">
       <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">
+        <CardHeader className="space-y-2">
+          <CardTitle className="text-xl sm:text-2xl">
             {getScenarioEmoji(scenarioConfig.id)} Welcome to {scenarioConfig.name}
           </CardTitle>
-          <CardDescription className="text-base">
+          <CardDescription className="text-sm sm:text-base">
             {scenarioConfig.description}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="space-y-3 text-sm">
+          <div className="space-y-3 text-xs sm:text-sm">
             <p>
               <strong>The Vision:</strong> {description.vision}
             </p>
@@ -68,15 +68,15 @@ export const WelcomeScreen = ({ onStart, scenarioConfig }: WelcomeScreenProps) =
             </p>
           </div>
           
-          <div className="bg-primary/10 p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">📊 What You'll Manage:</h4>
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              <div>💰 Business Finances</div>
-              <div>👥 User Growth</div>
-              <div>❤️ Your Health</div>
-              <div>🧘 Mental Peace</div>
-              <div>🤝 Team Morale</div>
-              <div>⭐ Product Quality</div>
+          <div className="bg-primary/10 p-3 sm:p-4 rounded-lg">
+            <h4 className="font-semibold mb-2 text-sm sm:text-base">📊 What You'll Manage:</h4>
+            <div className="grid grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm">
+              <div className="flex items-center gap-1.5">💰 Business Finances</div>
+              <div className="flex items-center gap-1.5">👥 User Growth</div>
+              <div className="flex items-center gap-1.5">❤️ Your Health</div>
+              <div className="flex items-center gap-1.5">🧘 Mental Peace</div>
+              <div className="flex items-center gap-1.5">🤝 Team Morale</div>
+              <div className="flex items-center gap-1.5">⭐ Product Quality</div>
             </div>
           </div>
 
@@ -88,8 +88,8 @@ export const WelcomeScreen = ({ onStart, scenarioConfig }: WelcomeScreenProps) =
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">🚀 Ready to Start Your Journey?</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-base sm:text-lg">🚀 Ready to Start Your Journey?</CardTitle>
+          <CardDescription className="text-xs sm:text-sm">
             You have ${scenarioConfig.initialGameState.money.toLocaleString()} in initial funding and a small but dedicated team. The market is waiting for your innovation.
           </CardDescription>
         </CardHeader>
