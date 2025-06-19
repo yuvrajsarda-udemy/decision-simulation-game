@@ -9,7 +9,7 @@ interface ScenarioDebugProps {
 }
 
 export const ScenarioDebug = ({ gameState, currentScenario, allScenarios, timeUnitType }: ScenarioDebugProps) => {
-  if (process.env.NODE_ENV !== 'development') {
+  if (process.env.SHOW_DEBUG !== 'TRUE') {
     return null; // Don't show in production
   }
 
