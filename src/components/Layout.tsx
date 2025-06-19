@@ -9,8 +9,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     {
       icon: GamepadIcon,
       label: "Games",
-      href: "/",
-      active: location.pathname === "/"
+      href: "/games",
+      active: location.pathname.startsWith("/games") || location.pathname === "/"
     },
     {
       icon: GraduationCap,

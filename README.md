@@ -1,55 +1,110 @@
 # Decision Simulation Game
 
-A modular decision-making simulation game where players navigate through various business scenarios, making choices that affect their success metrics.
+A React-based decision-making simulation game where players navigate through various business scenarios, making choices that affect their success metrics.
 
 ## Features
 
-- **Multiple Scenarios**: Choose from different business scenarios (FitFlow, Restaurant, etc.)
-- **Dynamic Decision Making**: Each choice affects multiple game metrics
-- **Progressive Difficulty**: Scenarios become more complex over time
-- **Persistent Game State**: Save and resume your progress
-- **Scenario Switching**: Easily switch between different game scenarios
+- **Multiple Game Scenarios**: Choose from different business simulations
+- **URL-based Navigation**: Each game has its own URL for easy sharing and bookmarking
+- **Persistent Game State**: Game progress is saved in session storage
+- **Dynamic Decision System**: Choices affect multiple metrics (money, health, mental peace, etc.)
+- **Responsive Design**: Works on desktop and mobile devices
+- **Modern UI**: Built with Tailwind CSS and shadcn/ui components
 
-## Current Scenarios
+## Navigation Structure
 
-### FitFlow: Fitness App Startup
-Build and grow your fitness tracking app from a solo developer to a successful startup. Navigate challenges like hiring decisions, competition, and investor interest.
+The app now features proper URL-based navigation:
 
-### Restaurant Empire
-Start your own restaurant and build it into a culinary empire. Make decisions about location, menu planning, and staffing.
+- **`/`** - Redirects to `/games` (Games hub)
+- **`/games`** - Games navigator showing all available scenarios
+- **`/games/:gameId`** - Individual game pages (e.g., `/games/fitflow`, `/games/restaurant`)
+- **`/courses`** - Courses page
+- **`/home`** - Home page
+- **`/profile`** - Profile page
 
-## Project Structure
+## Available Games
 
+### 🏃‍♀️ FitFlow: Fitness App Startup
+- **URL**: `/games/fitflow`
+- **Description**: Build and grow your fitness tracking app from a solo developer to a successful startup
+- **Starting Money**: $10,000
+- **Win Target**: $1M revenue with 90%+ product quality
+
+### 🍽️ Restaurant Empire
+- **URL**: `/games/restaurant`
+- **Description**: Build your restaurant from a small eatery to a culinary empire
+- **Starting Money**: $20,000
+- **Win Target**: $500K revenue with 90%+ product quality
+
+## Game Mechanics
+
+### Game State Properties
+- **money**: Financial resources
+- **health**: Physical health
+- **mentalPeace**: Mental well-being
+- **teamMorale**: Team happiness
+- **productQuality**: Quality of your product/service
+- **users**: Number of customers/users
+- **day**: Current day/week
+- **currentScenario**: Index of current scenario
+- **gameOver**: Whether the game has ended
+- **endReason**: Reason for game ending
+
+### Decision Effects
+Each decision affects multiple metrics:
+- Positive/negative money changes
+- Health impacts
+- Mental peace adjustments
+- Team morale changes
+- Product quality improvements/declines
+- User growth/loss
+
+### Game Over Conditions
+Games end when any of these conditions are met:
+- Money reaches 0
+- Health reaches 0
+- Mental peace reaches 0
+- Team morale reaches 0
+- Win conditions are met (target money + product quality)
+
+## Development
+
+### Prerequisites
+- Node.js 18+ 
+- npm or bun
+
+### Installation
+```bash
+# Clone the repository
+git clone <repository-url>
+cd decision-simulation-game
+
+# Install dependencies
+npm install
+# or
+bun install
 ```
-src/
-├── data/
-│   ├── fitflow/              # FitFlow scenario data
-│   │   ├── scenarios.ts      # Decision scenarios
-│   │   ├── config.ts         # Scenario configuration
-│   │   └── index.ts          # Exports
-│   ├── restaurant/           # Restaurant scenario data
-│   │   ├── scenarios.ts      # Decision scenarios
-│   │   ├── config.ts         # Scenario configuration
-│   │   └── index.ts          # Exports
-│   └── template/             # Template for new scenarios
-├── lib/
-│   ├── scenarioManager.ts    # Manages all scenarios
-│   └── utils.ts              # Utility functions
-├── components/               # React components
-├── types/                    # TypeScript type definitions
-└── pages/                    # Page components
+
+### Running the App
+```bash
+# Development mode
+npm run dev
+# or
+bun dev
+
+# Build for production
+npm run build
+# or
+bun run build
 ```
 
-## Adding New Scenarios
+### Adding New Scenarios
 
-The game is designed to be easily extensible. To add a new scenario:
-
-### 1. Create Scenario Folder
 Create a new folder under `src/data/` with your scenario name (e.g., `coffee-shop`, `tech-startup`).
 
-### 2. Create Required Files
+#### 1. Create Required Files
 
-#### `scenarios.ts`
+##### `scenarios.ts`
 Define your decision scenarios:
 
 ```typescript
@@ -73,7 +128,7 @@ export const yourScenarioScenarios: Scenario[] = [
 ];
 ```
 
-#### `config.ts`
+##### `config.ts`
 Configure your scenario:
 
 ```typescript
@@ -112,7 +167,7 @@ export const yourScenarioConfig = {
 };
 ```
 
-#### `index.ts`
+##### `index.ts`
 Export your scenario:
 
 ```typescript
@@ -120,7 +175,7 @@ export { yourScenarioScenarios } from './scenarios';
 export { yourScenarioConfig } from './config';
 ```
 
-### 3. Register Your Scenario
+#### 2. Register Your Scenario
 Add your scenario to `src/lib/scenarioManager.ts`:
 
 ```typescript
@@ -130,69 +185,52 @@ import { yourScenarioConfig } from '../data/your-scenario';
 this.scenarios.set('your-scenario-id', yourScenarioConfig);
 ```
 
-## Game Mechanics
+## Technologies Used
 
-### Game State Properties
-- **money**: Financial resources
-- **health**: Physical health
-- **mentalPeace**: Mental well-being
-- **teamMorale**: Team happiness
-- **productQuality**: Quality of your product/service
-- **users**: Number of customers/users
-- **day**: Current day/week
-- **currentScenario**: Index of current scenario
-- **gameOver**: Whether the game has ended
-- **endReason**: Reason for game ending
+- **React 18** - UI framework
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **React Router** - Client-side routing
+- **Tailwind CSS** - Styling
+- **shadcn/ui** - UI components
+- **Lucide React** - Icons
 
-### Decision Effects
-Each decision can affect multiple metrics:
-- Positive effects: `{ money: 1000, health: 5 }`
-- Negative effects: `{ money: -500, mentalPeace: -10 }`
-- No effect: `{ money: 0 }` or omit the property
+## Project Structure
 
-### Win/Lose Conditions
-Configure when the game ends:
-- **Game Over**: When any metric reaches 0
-- **Win**: When money and product quality reach target values
-
-## Development
-
-### Prerequisites
-- Node.js 18+
-- npm or yarn
-
-### Installation
-```bash
-npm install
 ```
-
-### Development Server
-```bash
-npm run dev
-```
-
-### Build
-```bash
-npm run build
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # shadcn/ui components
+│   ├── DecisionCard.tsx
+│   ├── GameOver.tsx
+│   ├── GameStats.tsx
+│   ├── Layout.tsx
+│   └── ...
+├── data/               # Game scenarios and data
+│   ├── fitflow/        # Fitness app scenario
+│   ├── restaurant/     # Restaurant scenario
+│   └── template/       # Template for new scenarios
+├── lib/                # Utility functions
+│   ├── scenarioManager.ts
+│   └── utils.ts
+├── pages/              # Page components
+│   ├── Games.tsx       # Games navigator
+│   ├── Game.tsx        # Individual game page
+│   ├── Courses.tsx
+│   ├── Home.tsx
+│   └── Profile.tsx
+├── types/              # TypeScript type definitions
+└── hooks/              # Custom React hooks
 ```
 
 ## Contributing
 
 1. Fork the repository
 2. Create a feature branch
-3. Add your new scenario following the structure above
-4. Test your scenario thoroughly
+3. Make your changes
+4. Add tests if applicable
 5. Submit a pull request
-
-## Tips for Creating Scenarios
-
-1. **Start Simple**: Begin with 3-5 scenarios to test the flow
-2. **Balance Effects**: Make sure decisions have meaningful trade-offs
-3. **Progressive Difficulty**: Scenarios should get more complex over time
-4. **Realistic Consequences**: Effects should make sense for the decision
-5. **Multiple Paths**: Allow for different strategies to succeed
-6. **Engaging Narrative**: Create compelling storylines that draw players in
 
 ## License
 
-MIT License - see LICENSE file for details.
+This project is licensed under the MIT License.
