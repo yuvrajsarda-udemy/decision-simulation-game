@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { GameStats } from '@/components/GameStats';
 import { DecisionCard } from '@/components/DecisionCard';
@@ -7,41 +6,34 @@ import { EventScreen } from '@/components/EventScreen';
 import { StatusScreen } from '@/components/StatusScreen';
 import { SummaryScreen } from '@/components/SummaryScreen';
 import { WelcomeScreen } from '@/components/WelcomeScreen';
-import { scenarios } from '@/data/scenarios';
+import { ScenarioSelector } from '@/components/ScenarioSelector';
+import { getCurrentScenario } from '@/data/scenarioManager';
 import { GameState, Decision, ScreenType } from '@/types/game';
 
 const Index = () => {
-  const [gameState, setGameState] = useState<GameState>({
-    money: 10000,
-    health: 80,
-    mentalPeace: 80,
-    teamMorale: 70,
-    productQuality: 50,
-    users: 100,
-    day: 1,
-    currentScenario: 0,
-    gameOver: false,
-    endReason: ''
-  });
+  const [currentScenarioConfig, setCurrentScenarioConfig] = useState(getCurrentScenario());
+  
+  const [gameState, setGameState] = useState<GameState>(currentScenarioConfig.initialGameState);
   
   const [currentScreen, setCurrentScreen] = useState<ScreenType>('decision');
   const [showWelcome, setShowWelcome] = useState(true);
+  const [showScenarioSelector, setShowScenarioSelector] = useState(false);
 
   // Load game state from session storage
   useEffect(() => {
-    const savedState = sessionStorage.getItem('startupGame');
+    const savedState = sessionStorage.getItem(`${currentScenarioConfig.id}Game`);
     if (savedState) {
       setGameState(JSON.parse(savedState));
       setShowWelcome(false);
     }
-  }, []);
+  }, [currentScenarioConfig.id]);
 
   // Save game state to session storage
   useEffect(() => {
     if (!showWelcome) {
-      sessionStorage.setItem('startupGame', JSON.stringify(gameState));
+      sessionStorage.setItem(`${currentScenarioConfig.id}Game`, JSON.stringify(gameState));
     }
-  }, [gameState, showWelcome]);
+  }, [gameState, showWelcome, currentScenarioConfig.id]);
 
   const makeDecision = (decision: Decision) => {
     const newState = { ...gameState };
@@ -56,28 +48,30 @@ const Index = () => {
     
     // Advance week and scenario
     newState.day += 1;
-    newState.currentScenario = (newState.currentScenario + 1) % scenarios.length;
+    newState.currentScenario = (newState.currentScenario + 1) % currentScenarioConfig.scenarios.length;
     
     // Determine next screen type
     const nextScreen = determineNextScreen(newState.day);
     setCurrentScreen(nextScreen);
     
-    // Check game over conditions
-    if (newState.money <= 0) {
+    // Check game over conditions using scenario config
+    const { gameOverConditions, winConditions } = currentScenarioConfig;
+    
+    if (newState.money <= gameOverConditions.money) {
       newState.gameOver = true;
       newState.endReason = 'Your startup ran out of money and had to shut down.';
-    } else if (newState.health <= 0) {
+    } else if (newState.health <= gameOverConditions.health) {
       newState.gameOver = true;
       newState.endReason = 'Your health deteriorated and you had to step down as CEO.';
-    } else if (newState.mentalPeace <= 0) {
+    } else if (newState.mentalPeace <= gameOverConditions.mentalPeace) {
       newState.gameOver = true;
       newState.endReason = 'The stress became too much and you burned out.';
-    } else if (newState.teamMorale <= 0) {
+    } else if (newState.teamMorale <= gameOverConditions.teamMorale) {
       newState.gameOver = true;
       newState.endReason = 'Your entire team quit due to low morale.';
-    } else if (newState.money >= 1000000 && newState.productQuality >= 90) {
+    } else if (newState.money >= winConditions.money && newState.productQuality >= winConditions.productQuality) {
       newState.gameOver = true;
-      newState.endReason = 'Congratulations! You built a million-dollar company with an amazing product!';
+      newState.endReason = `Congratulations! You successfully built ${currentScenarioConfig.name.split(':')[0]} and achieved your goals!`;
     }
     
     // Keep stats within bounds
@@ -99,22 +93,10 @@ const Index = () => {
   };
 
   const restartGame = () => {
-    const newState: GameState = {
-      money: 10000,
-      health: 80,
-      mentalPeace: 80,
-      teamMorale: 70,
-      productQuality: 50,
-      users: 100,
-      day: 1,
-      currentScenario: 0,
-      gameOver: false,
-      endReason: ''
-    };
-    setGameState(newState);
+    setGameState(currentScenarioConfig.initialGameState);
     setCurrentScreen('decision');
     setShowWelcome(true);
-    sessionStorage.removeItem('startupGame');
+    sessionStorage.removeItem(`${currentScenarioConfig.id}Game`);
   };
 
   const handleContinue = () => {
@@ -125,11 +107,27 @@ const Index = () => {
     setShowWelcome(false);
   };
 
-  const currentScenario = scenarios[gameState.currentScenario];
+  const handleScenarioSelect = () => {
+    setCurrentScenarioConfig(getCurrentScenario());
+    setGameState(getCurrentScenario().initialGameState);
+    setShowScenarioSelector(false);
+    setShowWelcome(true);
+    sessionStorage.removeItem(`${currentScenarioConfig.id}Game`);
+  };
+
+  const handleShowScenarioSelector = () => {
+    setShowScenarioSelector(true);
+  };
+
+  const currentScenario = currentScenarioConfig.scenarios[gameState.currentScenario];
 
   const renderCurrentScreen = () => {
+    if (showScenarioSelector) {
+      return <ScenarioSelector onScenarioSelect={handleScenarioSelect} />;
+    }
+
     if (showWelcome) {
-      return <WelcomeScreen onStart={handleStart} />;
+      return <WelcomeScreen onStart={handleStart} scenarioConfig={currentScenarioConfig} />;
     }
 
     if (gameState.gameOver) {
@@ -138,6 +136,7 @@ const Index = () => {
           endReason={gameState.endReason}
           finalStats={gameState}
           onRestart={restartGame}
+          scenarioConfig={currentScenarioConfig}
         />
       );
     }
@@ -169,17 +168,29 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/10 flex flex-col">
       {/* Header */}
-      {!showWelcome && (
+      {!showWelcome && !showScenarioSelector && (
         <div className="p-4 text-left">
-          <p className="text-sm text-primary font-medium mb-1">Simulation: Startup Founder</p>
-          <h1 className="text-2xl font-bold text-foreground">
-            Week {gameState.day} • {currentScenario.title}
-          </h1>
+          <div className="flex justify-between items-start">
+            <div>
+              <p className="text-sm text-primary font-medium mb-1">
+                Simulation: {currentScenarioConfig.name}
+              </p>
+              <h1 className="text-2xl font-bold text-foreground">
+                Week {gameState.day} • {currentScenario.title}
+              </h1>
+            </div>
+            <button
+              onClick={handleShowScenarioSelector}
+              className="text-sm text-primary hover:underline"
+            >
+              Change Scenario
+            </button>
+          </div>
         </div>
       )}
 
       {/* Stats - Compact */}
-      {!showWelcome && (
+      {!showWelcome && !showScenarioSelector && (
         <div className="px-4">
           <GameStats gameState={gameState} />
         </div>
@@ -191,7 +202,7 @@ const Index = () => {
       </div>
 
       {/* Bottom Navigation */}
-      {!showWelcome && (
+      {!showWelcome && !showScenarioSelector && (
         <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border">
           <div className="flex justify-around items-center py-2">
             <div className="flex flex-col items-center p-2">

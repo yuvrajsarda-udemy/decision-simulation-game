@@ -1,73 +1,196 @@
-# Welcome to your Lovable project
+# Decision Simulation Game
 
-## Project info
+A modular decision-making simulation game where players navigate through various business scenarios, making choices that affect their success metrics.
 
-**URL**: https://lovable.dev/projects/58a7564f-a57e-49a3-9db6-058dc15715ab
+## Features
 
-## How can I edit this code?
+- **Multiple Scenarios**: Choose from different business scenarios (FitFlow, Restaurant, etc.)
+- **Dynamic Decision Making**: Each choice affects multiple game metrics
+- **Progressive Difficulty**: Scenarios become more complex over time
+- **Persistent Game State**: Save and resume your progress
+- **Scenario Switching**: Easily switch between different game scenarios
 
-There are several ways of editing your application.
+## Current Scenarios
 
-**Use Lovable**
+### FitFlow: Fitness App Startup
+Build and grow your fitness tracking app from a solo developer to a successful startup. Navigate challenges like hiring decisions, competition, and investor interest.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/58a7564f-a57e-49a3-9db6-058dc15715ab) and start prompting.
+### Restaurant Empire
+Start your own restaurant and build it into a culinary empire. Make decisions about location, menu planning, and staffing.
 
-Changes made via Lovable will be committed automatically to this repo.
+## Project Structure
 
-**Use your preferred IDE**
+```
+src/
+├── data/
+│   ├── fitflow/              # FitFlow scenario data
+│   │   ├── scenarios.ts      # Decision scenarios
+│   │   ├── config.ts         # Scenario configuration
+│   │   └── index.ts          # Exports
+│   ├── restaurant/           # Restaurant scenario data
+│   │   ├── scenarios.ts      # Decision scenarios
+│   │   ├── config.ts         # Scenario configuration
+│   │   └── index.ts          # Exports
+│   ├── scenarioManager.ts    # Manages all scenarios
+│   └── scenarios.ts          # Legacy file (deprecated)
+├── components/               # React components
+├── types/                    # TypeScript type definitions
+└── pages/                    # Page components
+```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Adding New Scenarios
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+The game is designed to be easily extensible. To add a new scenario:
 
-Follow these steps:
+### 1. Create Scenario Folder
+Create a new folder under `src/data/` with your scenario name (e.g., `coffee-shop`, `tech-startup`).
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### 2. Create Required Files
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+#### `scenarios.ts`
+Define your decision scenarios:
 
-# Step 3: Install the necessary dependencies.
-npm i
+```typescript
+import { Scenario } from '@/types/game';
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+export const yourScenarioScenarios: Scenario[] = [
+  {
+    id: 1,
+    title: "Your First Decision",
+    description: "Description of the scenario...",
+    decisions: [
+      {
+        text: "Option 1",
+        description: "What this option does",
+        effects: { money: -1000, health: 5, users: 10 }
+      },
+      // ... more decisions
+    ]
+  },
+  // ... more scenarios
+];
+```
+
+#### `config.ts`
+Configure your scenario:
+
+```typescript
+import { GameState } from '@/types/game';
+import { yourScenarioScenarios } from './scenarios';
+
+export const yourScenarioConfig = {
+  id: 'your-scenario-id',
+  name: 'Your Scenario Name',
+  description: 'Description of your scenario',
+  initialGameState: {
+    money: 5000,
+    health: 100,
+    mentalPeace: 100,
+    teamMorale: 100,
+    productQuality: 50,
+    users: 0,
+    day: 1,
+    currentScenario: 0,
+    gameOver: false,
+    endReason: ''
+  },
+  scenarios: yourScenarioScenarios,
+  gameOverConditions: {
+    money: 0,
+    health: 0,
+    mentalPeace: 0,
+    teamMorale: 0,
+    productQuality: 0,
+    users: 0
+  },
+  winConditions: {
+    money: 500000,
+    productQuality: 85
+  }
+};
+```
+
+#### `index.ts`
+Export your scenario:
+
+```typescript
+export { yourScenarioScenarios } from './scenarios';
+export { yourScenarioConfig } from './config';
+```
+
+### 3. Register Your Scenario
+Add your scenario to `src/data/scenarioManager.ts`:
+
+```typescript
+import { yourScenarioConfig } from './your-scenario';
+
+// In the constructor:
+this.scenarios.set('your-scenario-id', yourScenarioConfig);
+```
+
+## Game Mechanics
+
+### Game State Properties
+- **money**: Financial resources
+- **health**: Physical health
+- **mentalPeace**: Mental well-being
+- **teamMorale**: Team happiness
+- **productQuality**: Quality of your product/service
+- **users**: Number of customers/users
+- **day**: Current day/week
+- **currentScenario**: Index of current scenario
+- **gameOver**: Whether the game has ended
+- **endReason**: Reason for game ending
+
+### Decision Effects
+Each decision can affect multiple metrics:
+- Positive effects: `{ money: 1000, health: 5 }`
+- Negative effects: `{ money: -500, mentalPeace: -10 }`
+- No effect: `{ money: 0 }` or omit the property
+
+### Win/Lose Conditions
+Configure when the game ends:
+- **Game Over**: When any metric reaches 0
+- **Win**: When money and product quality reach target values
+
+## Development
+
+### Prerequisites
+- Node.js 18+
+- npm or yarn
+
+### Installation
+```bash
+npm install
+```
+
+### Development Server
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Build
+```bash
+npm run build
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Contributing
 
-**Use GitHub Codespaces**
+1. Fork the repository
+2. Create a feature branch
+3. Add your new scenario following the structure above
+4. Test your scenario thoroughly
+5. Submit a pull request
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Tips for Creating Scenarios
 
-## What technologies are used for this project?
+1. **Start Simple**: Begin with 3-5 scenarios to test the flow
+2. **Balance Effects**: Make sure decisions have meaningful trade-offs
+3. **Progressive Difficulty**: Scenarios should get more complex over time
+4. **Realistic Consequences**: Effects should make sense for the decision
+5. **Multiple Paths**: Allow for different strategies to succeed
+6. **Engaging Narrative**: Create compelling storylines that draw players in
 
-This project is built with:
+## License
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/58a7564f-a57e-49a3-9db6-058dc15715ab) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+MIT License - see LICENSE file for details.
