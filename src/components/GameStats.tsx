@@ -38,7 +38,7 @@ export const GameStats = ({ gameState }: GameStatsProps) => {
         </div>
         <div className="text-center">
           <div className="text-xs text-muted-foreground">Users</div>
-          <div className="font-bold">{gameState.users.toLocaleString()}</div>
+          <div className="font-bold">{(gameState.users || 0).toLocaleString()}</div>
         </div>
         <div className="text-center">
           <div className="text-xs text-muted-foreground">Health</div>

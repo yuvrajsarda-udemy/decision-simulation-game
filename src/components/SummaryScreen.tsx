@@ -11,8 +11,8 @@ export const SummaryScreen = ({ gameState, onContinue }: SummaryScreenProps) => 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>📊 Weekly Summary</CardTitle>
-        <CardDescription>Here's how your startup performed this week</CardDescription>
+        <CardTitle>📊 Monthly Summary</CardTitle>
+        <CardDescription>Here's how your fitness app performed this month</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-2 gap-4 text-sm">
@@ -22,7 +22,7 @@ export const SummaryScreen = ({ gameState, onContinue }: SummaryScreenProps) => 
           <div>🧘 Mental Peace: {gameState.mentalPeace}%</div>
         </div>
         <Button onClick={onContinue} className="w-full">
-          Continue to Next Week
+          Continue to Next Month
         </Button>
       </CardContent>
     </Card>

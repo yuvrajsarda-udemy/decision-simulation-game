@@ -4,220 +4,220 @@ export const scenarios: Scenario[] = [
   {
     id: 1,
     title: "First Employee Decision",
-    description: "You've been working alone for months and finally have some funding. It's time to hire your first employee. Who do you choose?",
+    description: "Your fitness tracking app 'FitFlow' has 100 users and you're building alone from your apartment. You just saved enough to hire your first part-time contractor. What's your priority?",
     decisions: [
       {
-        text: "Hire a talented developer",
-        description: "Get help with building the product faster",
-        effects: { money: -3000, productQuality: 15, mentalPeace: 10, users: 20 }
+        text: "Hire a part-time developer",
+        description: "Get help with iOS app development and bug fixes",
+        effects: { money: -1500, productQuality: 8, mentalPeace: 5, users: 10 }
       },
       {
-        text: "Hire a marketing specialist",
-        description: "Focus on getting more customers",
-        effects: { money: -2500, teamMorale: 10, mentalPeace: 5, users: 50 }
+        text: "Hire a social media manager",
+        description: "Focus on growing your Instagram and TikTok presence",
+        effects: { money: -800, teamMorale: 5, mentalPeace: 3, users: 25 }
       },
       {
-        text: "Keep working solo for now",
-        description: "Save money but work longer hours",
-        effects: { money: 0, mentalPeace: -15, health: -10 }
+        text: "Keep bootstrapping solo",
+        description: "Save money but work longer hours on everything",
+        effects: { money: 0, mentalPeace: -8, health: -5 }
       }
     ]
   },
   {
     id: 2,
-    title: "Investor Meeting",
-    description: "A potential investor wants to meet. They're offering $50k for 20% of your company. The meeting is during your product launch week.",
+    title: "App Store Feature Opportunity",
+    description: "Apple wants to feature FitFlow in the App Store's 'New Apps We Love' section, but they need you to add Apple Health integration within 2 weeks. You have 150 users now.",
     decisions: [
       {
-        text: "Take the meeting",
-        description: "Secure funding but delay launch",
-        effects: { money: 50000, mentalPeace: -10, productQuality: -5 }
+        text: "Rush to add Apple Health integration",
+        description: "Work nights and weekends to meet their deadline",
+        effects: { health: -10, mentalPeace: -8, productQuality: -3, users: 80 }
       },
       {
-        text: "Focus on launch instead",
-        description: "Perfect your product launch timing",
-        effects: { productQuality: 10, teamMorale: 10, mentalPeace: -5, users: 100 }
+        text: "Politely decline and focus on core features",
+        description: "Miss the opportunity but maintain app quality",
+        effects: { productQuality: 5, mentalPeace: 2, users: 15 }
       },
       {
-        text: "Try to do both",
-        description: "Risky but potentially rewarding",
-        effects: { money: 25000, mentalPeace: -20, health: -15, users: 50 }
+        text: "Ask for a 1-month extension",
+        description: "Try to negotiate more time for proper implementation",
+        effects: { mentalPeace: -5, productQuality: 8, users: 40 }
       }
     ]
   },
   {
     id: 3,
-    title: "Technical Crisis",
-    description: "Your main server crashed and customer data might be at risk. You need to act fast but resources are limited.",
+    title: "Server Costs Rising",
+    description: "Your 200 users are actively tracking workouts, and your AWS bill jumped from $50 to $200 this month. The free tier is over and you need to optimize or pay more.",
     decisions: [
       {
-        text: "Hire emergency consultants",
-        description: "Quick fix but expensive",
-        effects: { money: -8000, productQuality: 20, mentalPeace: -10 }
+        text: "Optimize database and images",
+        description: "Spend time reducing server costs technically",
+        effects: { money: 100, mentalPeace: -5, productQuality: 3 }
       },
       {
-        text: "Fix it yourself overnight",
-        description: "Save money but risk your health",
-        effects: { money: 0, health: -20, mentalPeace: -25, productQuality: 10 }
+        text: "Just pay the higher bills for now",
+        description: "Focus on features instead of optimization",
+        effects: { money: -200, productQuality: 8, users: 20 }
       },
       {
-        text: "Be transparent with customers",
-        description: "Honest approach, may retain trust",
-        effects: { teamMorale: 15, mentalPeace: -15, productQuality: 5, users: -20 }
+        text: "Add a premium subscription tier",
+        description: "Introduce $4.99/month premium features early",
+        effects: { money: 300, teamMorale: -3, users: -10 }
       }
     ]
   },
   {
     id: 4,
-    title: "Competition Appears",
-    description: "A well-funded competitor just launched a similar product. They're offering features you don't have yet.",
+    title: "MyFitnessPal Competition",
+    description: "MyFitnessPal launched a workout tracking feature similar to FitFlow. Several users are asking why they should use your app instead of the established giant.",
     decisions: [
       {
-        text: "Rush to add their features",
-        description: "Stay competitive but compromise quality",
-        effects: { productQuality: -10, mentalPeace: -20, teamMorale: -10 }
+        text: "Build unique AI workout recommendations",
+        description: "Differentiate with personalized AI coaching features",
+        effects: { money: -1000, productQuality: 12, mentalPeace: -10, users: 30 }
       },
       {
-        text: "Focus on your unique strengths",
-        description: "Differentiate rather than copy",
-        effects: { productQuality: 15, teamMorale: 10, mentalPeace: -5, users: 30 }
+        text: "Focus on community features",
+        description: "Build workout buddy matching and challenges",
+        effects: { productQuality: 8, teamMorale: 5, users: 25 }
       },
       {
-        text: "Lower your prices to compete",
-        description: "Aggressive pricing strategy",
-        effects: { money: -5000, teamMorale: -5, mentalPeace: -10, users: 80 }
+        text: "Pivot to nutrition tracking",
+        description: "Abandon workout tracking, focus on meal planning",
+        effects: { mentalPeace: -15, productQuality: -8, users: -20 }
       }
     ]
   },
   {
     id: 5,
-    title: "Team Burnout",
-    description: "Your team has been working 60+ hour weeks for months. Productivity is dropping and people are getting frustrated.",
+    title: "Burnout Warning Signs",
+    description: "You've been coding 12 hours a day for 3 months. You now have 280 users but you're getting headaches and your girlfriend is concerned about your health.",
     decisions: [
       {
-        text: "Mandate time off and hire more people",
-        description: "Expensive but necessary for long-term health",
-        effects: { money: -10000, teamMorale: 25, mentalPeace: 15, health: 10 }
+        text: "Take a week off and hire a freelancer",
+        description: "Prioritize health and get temporary help",
+        effects: { money: -2000, health: 15, mentalPeace: 12, teamMorale: 8 }
       },
       {
-        text: "Push through the critical launch",
-        description: "Risk losing team members but meet deadlines",
-        effects: { teamMorale: -20, mentalPeace: -20, productQuality: 10, health: -10, users: 150 }
+        text: "Push through until you hit 500 users",
+        description: "Sacrifice health for growth milestone",
+        effects: { health: -15, mentalPeace: -12, users: 40, productQuality: 5 }
       },
       {
-        text: "Reduce scope and set realistic goals",
-        description: "Compromise on features but protect the team",
-        effects: { teamMorale: 15, mentalPeace: 10, productQuality: -5 }
+        text: "Set better boundaries and work 8-hour days",
+        description: "Sustainable pace but slower feature development",
+        effects: { health: 8, mentalPeace: 10, productQuality: -3 }
       }
     ]
   },
   {
     id: 6,
-    title: "Major Client Opportunity",
-    description: "A Fortune 500 company wants to use your product but needs custom features that would take 3 months to build.",
+    title: "Gym Partnership Proposal",
+    description: "A local gym chain with 5 locations wants to promote FitFlow to their 2,000 members in exchange for a custom branded version of your app.",
     decisions: [
       {
-        text: "Accept and build custom features",
-        description: "Huge revenue but may neglect other customers",
-        effects: { money: 75000, mentalPeace: -15, teamMorale: -10, productQuality: -5, users: -30 }
+        text: "Build custom branded version",
+        description: "Big user boost but significant development work",
+        effects: { money: 2000, mentalPeace: -8, productQuality: -5, users: 150 }
       },
       {
-        text: "Decline and focus on core product",
-        description: "Stay true to your vision",
-        effects: { productQuality: 15, teamMorale: 10, mentalPeace: 5, users: 40 }
+        text: "Offer white-label partnership instead",
+        description: "Easier integration with revenue sharing",
+        effects: { money: 800, teamMorale: 3, users: 80 }
       },
       {
-        text: "Negotiate a partnership deal",
-        description: "Find a middle ground solution",
-        effects: { money: 30000, teamMorale: 5, mentalPeace: -10, productQuality: 5, users: 20 }
+        text: "Decline and focus on individual users",
+        description: "Stay true to your B2C vision",
+        effects: { productQuality: 5, mentalPeace: 3, users: 20 }
       }
     ]
   },
   {
     id: 7,
-    title: "Scaling Challenges",
-    description: "Your user base has grown 300% this month. Your infrastructure is struggling and support tickets are piling up.",
+    title: "App Store Review Bomb",
+    description: "Your 350 users love FitFlow, but a bug in the latest update caused some users to lose workout data. Your App Store rating dropped from 4.8 to 3.9 with angry reviews.",
     decisions: [
       {
-        text: "Invest heavily in infrastructure",
-        description: "Expensive but necessary for stability",
-        effects: { money: -25000, productQuality: 20, mentalPeace: -10, users: 200 }
+        text: "Work 24/7 to fix and add data recovery",
+        description: "Emergency response to restore user trust",
+        effects: { health: -12, mentalPeace: -15, productQuality: 15, users: 20 }
       },
       {
-        text: "Hire more support staff",
-        description: "Address customer complaints directly",
-        effects: { money: -8000, teamMorale: 10, mentalPeace: -5, users: 100 }
+        text: "Issue apology and offer premium subscriptions",
+        description: "Compensate affected users with free premium",
+        effects: { money: -500, teamMorale: 5, users: 10 }
       },
       {
-        text: "Implement usage limits",
-        description: "Control growth while you catch up",
-        effects: { mentalPeace: 10, teamMorale: -5, productQuality: 5, users: -50 }
+        text: "Implement better testing and QA processes",
+        description: "Prevent future issues but takes time",
+        effects: { productQuality: 10, mentalPeace: -5, users: 5 }
       }
     ]
   },
   {
     id: 8,
-    title: "Investment Round Decision",
-    description: "You have offers from three different investors. Each comes with different terms and expectations.",
+    title: "Angel Investor Interest",
+    description: "A former Nike executive turned angel investor wants to invest $25k for 15% equity in FitFlow. You have 400 users and $3k in monthly recurring revenue.",
     decisions: [
       {
-        text: "Accept VC funding ($200k for 25%)",
-        description: "Big money but high expectations",
-        effects: { money: 200000, mentalPeace: -20, teamMorale: 10 }
+        text: "Accept the investment offer",
+        description: "Get funding and valuable sports industry expertise",
+        effects: { money: 25000, mentalPeace: -5, teamMorale: 8 }
       },
       {
-        text: "Take angel investment ($75k for 10%)",
-        description: "Moderate funding with mentorship",
-        effects: { money: 75000, mentalPeace: -5, teamMorale: 15, productQuality: 10 }
+        text: "Negotiate for better terms",
+        description: "Try to get $25k for 10% equity instead",
+        effects: { money: 15000, mentalPeace: -8, teamMorale: 3 }
       },
       {
-        text: "Bootstrap and maintain control",
-        description: "Keep equity but limited resources",
-        effects: { mentalPeace: -15, teamMorale: 20, health: -10 }
+        text: "Keep full ownership and bootstrap",
+        description: "Maintain control but limited resources",
+        effects: { mentalPeace: 5, teamMorale: 10, health: -5 }
       }
     ]
   },
   {
     id: 9,
-    title: "Product Pivot Decision",
-    description: "Data shows customers are using your product differently than intended. You could pivot to this new use case.",
+    title: "User Behavior Insights",
+    description: "Analytics show 450 users primarily use FitFlow for yoga and meditation tracking, not gym workouts as intended. Yoga content gets 10x more engagement.",
     decisions: [
       {
-        text: "Pivot to the new direction",
-        description: "Follow the data but restart development",
-        effects: { productQuality: -15, teamMorale: -10, mentalPeace: -20, users: 200 }
+        text: "Pivot to become a yoga and mindfulness app",
+        description: "Follow user behavior and redesign around yoga",
+        effects: { productQuality: -10, mentalPeace: -12, users: 100 }
       },
       {
-        text: "Stick to original vision",
-        description: "Trust your instincts over data",
-        effects: { teamMorale: 10, mentalPeace: 5, productQuality: 5, users: -20 }
+        text: "Add more yoga features while keeping gym focus",
+        description: "Expand to serve both user groups",
+        effects: { money: -2000, productQuality: 5, users: 60 }
       },
       {
-        text: "Build features for both use cases",
-        description: "Try to serve everyone but risk complexity",
-        effects: { money: -5000, mentalPeace: -15, productQuality: -10, users: 80 }
+        text: "Double down on gym features and education",
+        description: "Stick to original vision and educate users",
+        effects: { teamMorale: 8, mentalPeace: 2, users: 15 }
       }
     ]
   },
   {
     id: 10,
-    title: "Exit Opportunity",
-    description: "A larger company wants to acquire you for $500k. It's not your dream exit, but it's guaranteed money.",
+    title: "Acquisition Offer",
+    description: "Under Armour wants to acquire FitFlow for $150k to integrate into their MyFitnessPal ecosystem. You have 500 users and are finally profitable at $2k/month.",
     decisions: [
       {
-        text: "Accept the acquisition",
-        description: "Secure exit but give up on bigger dreams",
-        effects: { money: 500000, mentalPeace: 20, health: 20 }
+        text: "Accept acquisition and join Under Armour",
+        description: "Secure exit and become employee at large company",
+        effects: { money: 150000, health: 10, mentalPeace: 15 }
       },
       {
-        text: "Decline and keep building",
-        description: "Bet on yourself for bigger success",
-        effects: { mentalPeace: -10, teamMorale: 15, productQuality: 10, users: 100 }
+        text: "Decline and continue growing independently",
+        description: "Bet on building something bigger yourself",
+        effects: { mentalPeace: -5, teamMorale: 12, productQuality: 8, users: 50 }
       },
       {
-        text: "Negotiate for better terms",
-        description: "Try to get more value",
-        effects: { money: 100000, mentalPeace: -15, teamMorale: 5, users: 20 }
+        text: "Negotiate for $250k and better terms",
+        description: "Try to get more value for your work",
+        effects: { money: 75000, mentalPeace: -10, teamMorale: 2 }
       }
     ]
   }

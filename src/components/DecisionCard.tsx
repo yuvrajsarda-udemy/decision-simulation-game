@@ -67,8 +67,8 @@ export const DecisionCard = ({ scenario, onDecision }: DecisionCardProps) => {
               disabled={selectedDecision !== null}
             >
               <div className="w-full">
-                <div className="font-medium mb-2">{decision.text}</div>
-                <div className="text-sm text-muted-foreground mb-3">
+                <div className="font-medium mb-2 break-words">{decision.text}</div>
+                <div className="text-sm text-muted-foreground mb-3 break-words">
                   {decision.description}
                 </div>
                 <div className="flex flex-wrap gap-2">

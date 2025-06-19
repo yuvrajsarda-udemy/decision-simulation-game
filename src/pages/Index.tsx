@@ -48,7 +48,7 @@ const Index = () => {
     newState.productQuality += decision.effects.productQuality || 0;
     newState.users += decision.effects.users || 0;
     
-    // Advance day and scenario
+    // Advance week and scenario
     newState.day += 1;
     newState.currentScenario = (newState.currentScenario + 1) % scenarios.length;
     
@@ -85,10 +85,10 @@ const Index = () => {
     setGameState(newState);
   };
 
-  const determineNextScreen = (day: number): ScreenType => {
-    if (day % 7 === 0) return 'summary'; // Weekly summary
-    if (day % 5 === 0) return 'event'; // Random events
-    if (day % 3 === 0) return 'status'; // Status updates
+  const determineNextScreen = (week: number): ScreenType => {
+    if (week % 4 === 0) return 'summary'; // Monthly summary
+    if (week % 3 === 0) return 'event'; // Random events
+    if (week % 2 === 0) return 'status'; // Status updates
     return 'decision'; // Default to decision
   };
 
@@ -116,10 +116,6 @@ const Index = () => {
 
   const currentScenario = scenarios[gameState.currentScenario];
 
-  const getDayName = (day: number) => {
-    const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    return dayNames[(day - 1) % 7];
-  };
 
   const renderCurrentScreen = () => {
     if (gameState.gameOver) {
@@ -159,10 +155,10 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/10 flex flex-col">
       {/* Header */}
-      <div className="p-4 text-center">
+      <div className="p-4 text-left">
         <p className="text-sm text-primary font-medium mb-1">Simulation: Startup Founder</p>
         <h1 className="text-2xl font-bold text-foreground">
-          Day {gameState.day} • {getDayName(gameState.day)}
+          Week {gameState.day} • {currentScenario.title}
         </h1>
       </div>
 
@@ -171,9 +167,31 @@ const Index = () => {
         <GameStats gameState={gameState} />
       </div>
 
-      {/* Main Content - 70% of remaining space */}
-      <div className="flex-1 px-4 pb-4">
+      {/* Main Content */}
+      <div className="flex-1 px-4 pb-20">
         {renderCurrentScreen()}
+      </div>
+
+      {/* Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border">
+        <div className="flex justify-around items-center py-2">
+          <div className="flex flex-col items-center p-2">
+            <div className="w-6 h-6 rounded-full bg-primary"></div>
+            <span className="text-xs text-primary font-medium mt-1">Games</span>
+          </div>
+          <div className="flex flex-col items-center p-2">
+            <div className="w-6 h-6 rounded-full bg-muted"></div>
+            <span className="text-xs text-muted-foreground mt-1">Courses</span>
+          </div>
+          <div className="flex flex-col items-center p-2">
+            <div className="w-6 h-6 rounded-full bg-muted"></div>
+            <span className="text-xs text-muted-foreground mt-1">Home</span>
+          </div>
+          <div className="flex flex-col items-center p-2">
+            <div className="w-6 h-6 rounded-full bg-muted"></div>
+            <span className="text-xs text-muted-foreground mt-1">Profile</span>
+          </div>
+        </div>
       </div>
     </div>
   );
