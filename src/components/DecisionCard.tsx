@@ -1,4 +1,4 @@
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Scenario, Decision } from '@/types/game';
@@ -7,9 +7,10 @@ import { ArrowUp, ArrowDown, Banknote, Heart } from 'lucide-react';
 interface DecisionCardProps {
   scenario: Scenario;
   onDecision: (decision: Decision) => void;
+  weekNumber: number;
 }
 
-export const DecisionCard = ({ scenario, onDecision }: DecisionCardProps) => {
+export const DecisionCard = ({ scenario, onDecision, weekNumber }: DecisionCardProps) => {
   const getEffectIcon = (type: string, value: number) => {
     const isPositive = value > 0;
     const iconClass = `w-4 h-4 ${isPositive ? 'text-primary' : 'text-destructive'}`;
@@ -42,7 +43,12 @@ export const DecisionCard = ({ scenario, onDecision }: DecisionCardProps) => {
 
   return (
     <Card className="mb-6">
-      <CardContent className="pt-6">
+      <CardHeader>
+        <CardTitle className="text-xl sm:text-2xl font-bold">
+          Week {weekNumber} • {scenario.title}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="pt-0">
         <div className="text-base text-muted-foreground leading-relaxed mb-6">
           {scenario.description}
         </div>

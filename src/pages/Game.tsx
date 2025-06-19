@@ -170,6 +170,7 @@ const Game = () => {
           <DecisionCard 
             scenario={currentScenario}
             onDecision={makeDecision}
+            weekNumber={gameState.day}
           />
         );
       case 'event':
@@ -183,6 +184,7 @@ const Game = () => {
           <DecisionCard 
             scenario={currentScenario}
             onDecision={makeDecision}
+            weekNumber={gameState.day}
           />
         );
     }
@@ -193,25 +195,15 @@ const Game = () => {
       {/* Header */}
       {!showWelcome && !showScenarioSelector && (
         <div className="p-4 text-left">
-          <div className="flex flex-col gap-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => navigate('/games')}
-              className="text-muted-foreground hover:text-foreground self-start"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Games
-            </Button>
-            <div className="space-y-2">
-              <p className="text-sm text-primary font-medium">
-                Simulation: {scenarioConfig.name}
-              </p>
-              <h1 className="text-xl sm:text-2xl font-bold text-foreground">
-                Week {gameState.day} • {currentScenario.title}
-              </h1>
-            </div>
-          </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate('/games')}
+            className="text-muted-foreground hover:text-foreground self-start"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            {scenarioConfig.name}
+          </Button>
         </div>
       )}
 
