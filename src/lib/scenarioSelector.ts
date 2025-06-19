@@ -21,7 +21,7 @@ export class ScenarioSelector {
     const availableScenarios = this.getAvailableScenarios(scenarios, gameState);
     
     if (availableScenarios.length === 0) {
-      // Fallback to any scenario if none match conditions
+      console.log('No scenarios available, falling back to random selection'); // this shouldn't happen usually
       return scenarios[Math.floor(Math.random() * scenarios.length)];
     }
 
