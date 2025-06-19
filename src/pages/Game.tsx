@@ -11,7 +11,7 @@ import { ScenarioSelector } from '@/components/ScenarioSelector';
 import { scenarioManager, getAvailableScenarios } from '@/lib/scenarioManager';
 import { GameState, Decision, ScreenType } from '@/types/game';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, RotateCcw } from 'lucide-react';
 
 const Game = () => {
   const { gameId } = useParams<{ gameId: string }>();
@@ -213,12 +213,23 @@ const Game = () => {
                 </h1>
               </div>
             </div>
-            <button
-              onClick={handleShowScenarioSelector}
-              className="text-sm text-primary hover:underline"
-            >
-              Change Scenario
-            </button>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={restartGame}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <RotateCcw className="w-4 h-4 mr-2" />
+                Restart
+              </Button>
+              <button
+                onClick={handleShowScenarioSelector}
+                className="text-sm text-primary hover:underline"
+              >
+                Change Scenario
+              </button>
+            </div>
           </div>
         </div>
       )}
