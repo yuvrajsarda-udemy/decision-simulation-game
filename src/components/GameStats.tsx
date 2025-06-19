@@ -30,71 +30,31 @@ export const GameStats = ({ gameState }: GameStatsProps) => {
   };
 
   return (
-    <Card className="p-4 mb-6">
-      <div className="space-y-4">
-        {/* Money */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Banknote className="w-5 h-5 text-primary" />
-            <span className="font-medium">Money</span>
-          </div>
-          <span className="text-lg font-bold">{formatMoney(gameState.money)}</span>
+    <Card className="p-3 mb-4">
+      <div className="grid grid-cols-3 gap-2 text-xs">
+        <div className="text-center">
+          <div className="text-xs text-muted-foreground">Money</div>
+          <div className="font-bold">{formatMoney(gameState.money)}</div>
         </div>
-
-        {/* Health */}
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Heart className="w-5 h-5 text-primary" />
-              <span className="font-medium">Health</span>
-            </div>
-            <span className={`font-semibold ${getStatColor(gameState.health)}`}>
-              {gameState.health}%
-            </span>
-          </div>
-          <Progress value={gameState.health} className="h-2" />
+        <div className="text-center">
+          <div className="text-xs text-muted-foreground">Users</div>
+          <div className="font-bold">{gameState.users.toLocaleString()}</div>
         </div>
-
-        {/* Stress */}
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <ArrowUp className="w-5 h-5 text-destructive" />
-              <span className="font-medium">Stress</span>
-            </div>
-            <span className={`font-semibold ${getStatColor(gameState.stress, true)}`}>
-              {gameState.stress}%
-            </span>
-          </div>
-          <Progress value={gameState.stress} className="h-2" />
+        <div className="text-center">
+          <div className="text-xs text-muted-foreground">Health</div>
+          <div className={`font-bold ${getStatColor(gameState.health)}`}>{gameState.health}%</div>
         </div>
-
-        {/* Team Morale */}
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Heart className="w-5 h-5 text-primary" />
-              <span className="font-medium">Team Morale</span>
-            </div>
-            <span className={`font-semibold ${getStatColor(gameState.teamMorale)}`}>
-              {gameState.teamMorale}%
-            </span>
-          </div>
-          <Progress value={gameState.teamMorale} className="h-2" />
+        <div className="text-center">
+          <div className="text-xs text-muted-foreground">Mental Peace</div>
+          <div className={`font-bold ${getStatColor(gameState.mentalPeace)}`}>{gameState.mentalPeace}%</div>
         </div>
-
-        {/* Product Quality */}
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <ArrowUp className="w-5 h-5 text-primary" />
-              <span className="font-medium">Product Quality</span>
-            </div>
-            <span className={`font-semibold ${getStatColor(gameState.productQuality)}`}>
-              {gameState.productQuality}%
-            </span>
-          </div>
-          <Progress value={gameState.productQuality} className="h-2" />
+        <div className="text-center">
+          <div className="text-xs text-muted-foreground">Team Morale</div>
+          <div className={`font-bold ${getStatColor(gameState.teamMorale)}`}>{gameState.teamMorale}%</div>
+        </div>
+        <div className="text-center">
+          <div className="text-xs text-muted-foreground">Product Quality</div>
+          <div className={`font-bold ${getStatColor(gameState.productQuality)}`}>{gameState.productQuality}%</div>
         </div>
       </div>
     </Card>

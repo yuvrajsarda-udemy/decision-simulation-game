@@ -24,11 +24,12 @@ export const GameOver = ({ endReason, finalStats, onRestart }: GameOverProps) =>
   const getScore = () => {
     const moneyScore = Math.min(finalStats.money / 10000, 100);
     const healthScore = finalStats.health;
-    const stressScore = 100 - finalStats.stress;
+    const mentalPeaceScore = finalStats.mentalPeace;
     const moraleScore = finalStats.teamMorale;
     const qualityScore = finalStats.productQuality;
+    const usersScore = Math.min(finalStats.users / 100, 100);
     
-    return Math.round((moneyScore + healthScore + stressScore + moraleScore + qualityScore) / 5);
+    return Math.round((moneyScore + healthScore + mentalPeaceScore + moraleScore + qualityScore + usersScore) / 6);
   };
 
   const getScoreRating = (score: number) => {
@@ -77,15 +78,19 @@ export const GameOver = ({ endReason, finalStats, onRestart }: GameOverProps) =>
             </div>
             <div className="flex items-center gap-2">
               <ArrowUp className="w-4 h-4" />
-              <span>Stress: {finalStats.stress}%</span>
+              <span>Mental Peace: {finalStats.mentalPeace}%</span>
             </div>
             <div className="flex items-center gap-2">
               <Heart className="w-4 h-4" />
               <span>Team: {finalStats.teamMorale}%</span>
             </div>
-            <div className="flex items-center gap-2 col-span-2">
+            <div className="flex items-center gap-2">
               <ArrowUp className="w-4 h-4" />
               <span>Product Quality: {finalStats.productQuality}%</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <ArrowUp className="w-4 h-4" />
+              <span>Users: {finalStats.users.toLocaleString()}</span>
             </div>
           </div>
         </div>

@@ -9,17 +9,17 @@ export const scenarios: Scenario[] = [
       {
         text: "Hire a talented developer",
         description: "Get help with building the product faster",
-        effects: { money: -3000, productQuality: 15, stress: -10 }
+        effects: { money: -3000, productQuality: 15, mentalPeace: 10, users: 20 }
       },
       {
         text: "Hire a marketing specialist",
         description: "Focus on getting more customers",
-        effects: { money: -2500, teamMorale: 10, stress: -5 }
+        effects: { money: -2500, teamMorale: 10, mentalPeace: 5, users: 50 }
       },
       {
         text: "Keep working solo for now",
         description: "Save money but work longer hours",
-        effects: { money: 0, stress: 15, health: -10 }
+        effects: { money: 0, mentalPeace: -15, health: -10 }
       }
     ]
   },
@@ -31,17 +31,17 @@ export const scenarios: Scenario[] = [
       {
         text: "Take the meeting",
         description: "Secure funding but delay launch",
-        effects: { money: 50000, stress: 10, productQuality: -5 }
+        effects: { money: 50000, mentalPeace: -10, productQuality: -5 }
       },
       {
         text: "Focus on launch instead",
         description: "Perfect your product launch timing",
-        effects: { productQuality: 10, teamMorale: 10, stress: 5 }
+        effects: { productQuality: 10, teamMorale: 10, mentalPeace: -5, users: 100 }
       },
       {
         text: "Try to do both",
         description: "Risky but potentially rewarding",
-        effects: { money: 25000, stress: 20, health: -15 }
+        effects: { money: 25000, mentalPeace: -20, health: -15, users: 50 }
       }
     ]
   },
@@ -53,17 +53,17 @@ export const scenarios: Scenario[] = [
       {
         text: "Hire emergency consultants",
         description: "Quick fix but expensive",
-        effects: { money: -8000, productQuality: 20, stress: 10 }
+        effects: { money: -8000, productQuality: 20, mentalPeace: -10 }
       },
       {
         text: "Fix it yourself overnight",
         description: "Save money but risk your health",
-        effects: { money: 0, health: -20, stress: 25, productQuality: 10 }
+        effects: { money: 0, health: -20, mentalPeace: -25, productQuality: 10 }
       },
       {
         text: "Be transparent with customers",
         description: "Honest approach, may retain trust",
-        effects: { teamMorale: 15, stress: 15, productQuality: 5 }
+        effects: { teamMorale: 15, mentalPeace: -15, productQuality: 5, users: -20 }
       }
     ]
   },
@@ -75,17 +75,17 @@ export const scenarios: Scenario[] = [
       {
         text: "Rush to add their features",
         description: "Stay competitive but compromise quality",
-        effects: { productQuality: -10, stress: 20, teamMorale: -10 }
+        effects: { productQuality: -10, mentalPeace: -20, teamMorale: -10 }
       },
       {
         text: "Focus on your unique strengths",
         description: "Differentiate rather than copy",
-        effects: { productQuality: 15, teamMorale: 10, stress: 5 }
+        effects: { productQuality: 15, teamMorale: 10, mentalPeace: -5, users: 30 }
       },
       {
         text: "Lower your prices to compete",
         description: "Aggressive pricing strategy",
-        effects: { money: -5000, teamMorale: -5, stress: 10 }
+        effects: { money: -5000, teamMorale: -5, mentalPeace: -10, users: 80 }
       }
     ]
   },
@@ -97,17 +97,17 @@ export const scenarios: Scenario[] = [
       {
         text: "Mandate time off and hire more people",
         description: "Expensive but necessary for long-term health",
-        effects: { money: -10000, teamMorale: 25, stress: -15, health: 10 }
+        effects: { money: -10000, teamMorale: 25, mentalPeace: 15, health: 10 }
       },
       {
         text: "Push through the critical launch",
         description: "Risk losing team members but meet deadlines",
-        effects: { teamMorale: -20, stress: 20, productQuality: 10, health: -10 }
+        effects: { teamMorale: -20, mentalPeace: -20, productQuality: 10, health: -10, users: 150 }
       },
       {
         text: "Reduce scope and set realistic goals",
         description: "Compromise on features but protect the team",
-        effects: { teamMorale: 15, stress: -10, productQuality: -5 }
+        effects: { teamMorale: 15, mentalPeace: 10, productQuality: -5 }
       }
     ]
   },
@@ -119,17 +119,17 @@ export const scenarios: Scenario[] = [
       {
         text: "Accept and build custom features",
         description: "Huge revenue but may neglect other customers",
-        effects: { money: 75000, stress: 15, teamMorale: -10, productQuality: -5 }
+        effects: { money: 75000, mentalPeace: -15, teamMorale: -10, productQuality: -5, users: -30 }
       },
       {
         text: "Decline and focus on core product",
         description: "Stay true to your vision",
-        effects: { productQuality: 15, teamMorale: 10, stress: -5 }
+        effects: { productQuality: 15, teamMorale: 10, mentalPeace: 5, users: 40 }
       },
       {
         text: "Negotiate a partnership deal",
         description: "Find a middle ground solution",
-        effects: { money: 30000, teamMorale: 5, stress: 10, productQuality: 5 }
+        effects: { money: 30000, teamMorale: 5, mentalPeace: -10, productQuality: 5, users: 20 }
       }
     ]
   },
@@ -141,17 +141,17 @@ export const scenarios: Scenario[] = [
       {
         text: "Invest heavily in infrastructure",
         description: "Expensive but necessary for stability",
-        effects: { money: -25000, productQuality: 20, stress: 10 }
+        effects: { money: -25000, productQuality: 20, mentalPeace: -10, users: 200 }
       },
       {
         text: "Hire more support staff",
         description: "Address customer complaints directly",
-        effects: { money: -8000, teamMorale: 10, stress: 5 }
+        effects: { money: -8000, teamMorale: 10, mentalPeace: -5, users: 100 }
       },
       {
         text: "Implement usage limits",
         description: "Control growth while you catch up",
-        effects: { stress: -10, teamMorale: -5, productQuality: 5 }
+        effects: { mentalPeace: 10, teamMorale: -5, productQuality: 5, users: -50 }
       }
     ]
   },
@@ -163,17 +163,17 @@ export const scenarios: Scenario[] = [
       {
         text: "Accept VC funding ($200k for 25%)",
         description: "Big money but high expectations",
-        effects: { money: 200000, stress: 20, teamMorale: 10 }
+        effects: { money: 200000, mentalPeace: -20, teamMorale: 10 }
       },
       {
         text: "Take angel investment ($75k for 10%)",
         description: "Moderate funding with mentorship",
-        effects: { money: 75000, stress: 5, teamMorale: 15, productQuality: 10 }
+        effects: { money: 75000, mentalPeace: -5, teamMorale: 15, productQuality: 10 }
       },
       {
         text: "Bootstrap and maintain control",
         description: "Keep equity but limited resources",
-        effects: { stress: 15, teamMorale: 20, health: -10 }
+        effects: { mentalPeace: -15, teamMorale: 20, health: -10 }
       }
     ]
   },
@@ -185,17 +185,17 @@ export const scenarios: Scenario[] = [
       {
         text: "Pivot to the new direction",
         description: "Follow the data but restart development",
-        effects: { productQuality: -15, teamMorale: -10, stress: 20 }
+        effects: { productQuality: -15, teamMorale: -10, mentalPeace: -20, users: 200 }
       },
       {
         text: "Stick to original vision",
         description: "Trust your instincts over data",
-        effects: { teamMorale: 10, stress: -5, productQuality: 5 }
+        effects: { teamMorale: 10, mentalPeace: 5, productQuality: 5, users: -20 }
       },
       {
         text: "Build features for both use cases",
         description: "Try to serve everyone but risk complexity",
-        effects: { money: -5000, stress: 15, productQuality: -10 }
+        effects: { money: -5000, mentalPeace: -15, productQuality: -10, users: 80 }
       }
     ]
   },
@@ -207,17 +207,17 @@ export const scenarios: Scenario[] = [
       {
         text: "Accept the acquisition",
         description: "Secure exit but give up on bigger dreams",
-        effects: { money: 500000, stress: -20, health: 20 }
+        effects: { money: 500000, mentalPeace: 20, health: 20 }
       },
       {
         text: "Decline and keep building",
         description: "Bet on yourself for bigger success",
-        effects: { stress: 10, teamMorale: 15, productQuality: 10 }
+        effects: { mentalPeace: -10, teamMorale: 15, productQuality: 10, users: 100 }
       },
       {
         text: "Negotiate for better terms",
         description: "Try to get more value",
-        effects: { money: 100000, stress: 15, teamMorale: 5 }
+        effects: { money: 100000, mentalPeace: -15, teamMorale: 5, users: 20 }
       }
     ]
   }
