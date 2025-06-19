@@ -81,10 +81,10 @@ export { yourScenarioConfig, type ScenarioConfig } from './config';
 
 ## 3. Register your scenario
 
-Add your scenario to the scenario manager in `src/data/scenarioManager.ts`:
+Add your scenario to the scenario manager in `src/lib/scenarioManager.ts`:
 
 ```typescript
-import { yourScenarioConfig } from './your-scenario';
+import { yourScenarioConfig } from '../data/your-scenario';
 
 // In the constructor:
 this.scenarios.set('your-scenario-id', yourScenarioConfig);
@@ -101,16 +101,19 @@ private currentScenarioId: string = 'your-scenario-id';
 ## Example Scenario Structure
 
 ```
-src/data/
-├── fitflow/           # Fitness app scenario
-│   ├── scenarios.ts
-│   ├── config.ts
-│   └── index.ts
-├── restaurant/        # Restaurant scenario (example)
-│   ├── scenarios.ts
-│   ├── config.ts
-│   └── index.ts
-└── scenarioManager.ts # Manages all scenarios
+src/
+├── data/
+│   ├── fitflow/           # Fitness app scenario
+│   │   ├── scenarios.ts
+│   │   ├── config.ts
+│   │   └── index.ts
+│   ├── restaurant/        # Restaurant scenario (example)
+│   │   ├── scenarios.ts
+│   │   ├── config.ts
+│   │   └── index.ts
+│   └── template/          # Template for new scenarios
+└── lib/
+    └── scenarioManager.ts # Manages all scenarios
 ```
 
 ## Game State Properties

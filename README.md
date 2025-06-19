@@ -31,8 +31,10 @@ src/
 │   │   ├── scenarios.ts      # Decision scenarios
 │   │   ├── config.ts         # Scenario configuration
 │   │   └── index.ts          # Exports
+│   └── template/             # Template for new scenarios
+├── lib/
 │   ├── scenarioManager.ts    # Manages all scenarios
-│   └── scenarios.ts          # Legacy file (deprecated)
+│   └── utils.ts              # Utility functions
 ├── components/               # React components
 ├── types/                    # TypeScript type definitions
 └── pages/                    # Page components
@@ -119,10 +121,10 @@ export { yourScenarioConfig } from './config';
 ```
 
 ### 3. Register Your Scenario
-Add your scenario to `src/data/scenarioManager.ts`:
+Add your scenario to `src/lib/scenarioManager.ts`:
 
 ```typescript
-import { yourScenarioConfig } from './your-scenario';
+import { yourScenarioConfig } from '../data/your-scenario';
 
 // In the constructor:
 this.scenarios.set('your-scenario-id', yourScenarioConfig);

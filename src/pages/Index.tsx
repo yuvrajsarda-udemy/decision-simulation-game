@@ -7,7 +7,7 @@ import { StatusScreen } from '@/components/StatusScreen';
 import { SummaryScreen } from '@/components/SummaryScreen';
 import { WelcomeScreen } from '@/components/WelcomeScreen';
 import { ScenarioSelector } from '@/components/ScenarioSelector';
-import { getCurrentScenario } from '@/data/scenarioManager';
+import { getCurrentScenario } from '@/lib/scenarioManager';
 import { GameState, Decision, ScreenType } from '@/types/game';
 
 const Index = () => {

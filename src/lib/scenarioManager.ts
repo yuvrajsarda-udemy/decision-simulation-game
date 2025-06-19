@@ -1,6 +1,6 @@
-import { ScenarioConfig } from './fitflow';
-import { fitflowConfig } from './fitflow';
-import { restaurantConfig } from './restaurant';
+import { ScenarioConfig } from '../data/fitflow';
+import { fitflowConfig } from '../data/fitflow';
+import { restaurantConfig } from '../data/restaurant';
 
 export interface ScenarioManager {
   getAvailableScenarios(): ScenarioConfig[];
