@@ -1,10 +1,18 @@
-import { Scenario, GameState, ScenarioConfig } from '@/types/game';
+import { Scenario, GameState, Game } from '@/types/game';
 
 export const fitflowScenarios: Scenario[] = [
   {
     id: 1,
     title: "First Employee Decision",
     description: "Your fitness tracking app 'FitFlow' has 100 users and you're building alone from your apartment. You just saved enough to hire your first part-time contractor. What's your priority?",
+    category: 'early',
+    weight: 1.2,
+    conditions: {
+      minUsers: 50,
+      maxUsers: 200,
+      minDay: 1,
+      maxDay: 10
+    },
     decisions: [
       {
         text: "Hire a part-time developer",
@@ -27,6 +35,13 @@ export const fitflowScenarios: Scenario[] = [
     id: 2,
     title: "App Store Feature Opportunity",
     description: "Apple wants to feature FitFlow in the App Store's 'New Apps We Love' section, but they need you to add Apple Health integration within 2 weeks. You have 150 users now.",
+    category: 'opportunity',
+    weight: 1.5,
+    conditions: {
+      minUsers: 100,
+      maxUsers: 300,
+      minProductQuality: 40
+    },
     decisions: [
       {
         text: "Rush to add Apple Health integration",
@@ -49,6 +64,13 @@ export const fitflowScenarios: Scenario[] = [
     id: 3,
     title: "Server Costs Rising",
     description: "Your 200 users are actively tracking workouts, and your AWS bill jumped from $50 to $200 this month. The free tier is over and you need to optimize or pay more.",
+    category: 'crisis',
+    weight: 1.3,
+    conditions: {
+      minUsers: 150,
+      maxUsers: 400,
+      minMoney: 500
+    },
     decisions: [
       {
         text: "Optimize database and images",
@@ -71,6 +93,13 @@ export const fitflowScenarios: Scenario[] = [
     id: 4,
     title: "MyFitnessPal Competition",
     description: "MyFitnessPal launched a workout tracking feature similar to FitFlow. Several users are asking why they should use your app instead of the established giant.",
+    category: 'crisis',
+    weight: 1.4,
+    conditions: {
+      minUsers: 200,
+      maxUsers: 500,
+      minDay: 15
+    },
     decisions: [
       {
         text: "Build unique AI workout recommendations",
@@ -93,6 +122,14 @@ export const fitflowScenarios: Scenario[] = [
     id: 5,
     title: "Burnout Warning Signs",
     description: "You've been coding 12 hours a day for 3 months. You now have 280 users but you're getting headaches and your girlfriend is concerned about your health.",
+    category: 'crisis',
+    weight: 1.6,
+    conditions: {
+      minUsers: 200,
+      maxUsers: 400,
+      minDay: 20,
+      maxHealth: 70
+    },
     decisions: [
       {
         text: "Take a week off and hire a freelancer",
@@ -115,6 +152,13 @@ export const fitflowScenarios: Scenario[] = [
     id: 6,
     title: "Gym Partnership Proposal",
     description: "A local gym chain with 5 locations wants to promote FitFlow to their 2,000 members in exchange for a custom branded version of your app.",
+    category: 'opportunity',
+    weight: 1.3,
+    conditions: {
+      minUsers: 250,
+      maxUsers: 600,
+      minProductQuality: 60
+    },
     decisions: [
       {
         text: "Build custom branded version",
@@ -137,6 +181,13 @@ export const fitflowScenarios: Scenario[] = [
     id: 7,
     title: "App Store Review Bomb",
     description: "Your 350 users love FitFlow, but a bug in the latest update caused some users to lose workout data. Your App Store rating dropped from 4.8 to 3.9 with angry reviews.",
+    category: 'crisis',
+    weight: 1.5,
+    conditions: {
+      minUsers: 300,
+      maxUsers: 500,
+      minProductQuality: 50
+    },
     decisions: [
       {
         text: "Work 24/7 to fix and add data recovery",
@@ -159,6 +210,13 @@ export const fitflowScenarios: Scenario[] = [
     id: 8,
     title: "Angel Investor Interest",
     description: "A former Nike executive turned angel investor wants to invest $25k for 15% equity in FitFlow. You have 400 users and $3k in monthly recurring revenue.",
+    category: 'opportunity',
+    weight: 1.4,
+    conditions: {
+      minUsers: 350,
+      maxUsers: 600,
+      minMoney: 2000
+    },
     decisions: [
       {
         text: "Accept the investment offer",
@@ -181,6 +239,13 @@ export const fitflowScenarios: Scenario[] = [
     id: 9,
     title: "User Behavior Insights",
     description: "Analytics show 450 users primarily use FitFlow for yoga and meditation tracking, not gym workouts as intended. Yoga content gets 10x more engagement.",
+    category: 'growth',
+    weight: 1.2,
+    conditions: {
+      minUsers: 400,
+      maxUsers: 700,
+      minDay: 30
+    },
     decisions: [
       {
         text: "Pivot to become a yoga and mindfulness app",
@@ -203,6 +268,14 @@ export const fitflowScenarios: Scenario[] = [
     id: 10,
     title: "Acquisition Offer",
     description: "Under Armour wants to acquire FitFlow for $150k to integrate into their MyFitnessPal ecosystem. You have 500 users and are finally profitable at $2k/month.",
+    category: 'late',
+    weight: 1.0,
+    conditions: {
+      minUsers: 450,
+      maxUsers: 1000,
+      minMoney: 5000,
+      minDay: 40
+    },
     decisions: [
       {
         text: "Accept acquisition and join Under Armour",
@@ -223,7 +296,7 @@ export const fitflowScenarios: Scenario[] = [
   }
 ];
 
-export const fitflowConfig: ScenarioConfig = {
+export const fitflowGame: Game = {
   id: 'fitflow',
   name: 'FitFlow: Fitness App Startup',
   description: 'Build and grow your fitness tracking app from a solo developer to a successful startup.',
@@ -245,7 +318,9 @@ export const fitflowConfig: ScenarioConfig = {
     day: 1,
     currentScenario: 0,
     gameOver: false,
-    endReason: ''
+    endReason: '',
+    seenScenarios: [],
+    scenarioHistory: []
   },
   scenarios: fitflowScenarios,
   gameOverConditions: {

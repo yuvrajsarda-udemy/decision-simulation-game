@@ -1,34 +1,34 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ScenarioConfig } from '@/types/game';
+import { Game } from '@/types/game';
 
 interface WelcomeScreenProps {
   onStart: () => void;
-  scenarioConfig: ScenarioConfig;
+  gameConfig: Game;
 }
 
-export const WelcomeScreen = ({ onStart, scenarioConfig }: WelcomeScreenProps) => {
-  const getScenarioEmoji = (scenarioId: string) => {
-    return scenarioConfig.emoji || '🎮';
+export const WelcomeScreen = ({ onStart, gameConfig }: WelcomeScreenProps) => {
+  const getGameEmoji = (gameId: string) => {
+    return gameConfig.emoji || '🎮';
   };
 
-  const getScenarioDescription = (scenarioId: string) => {
+  const getGameDescription = (gameId: string) => {
     return {
-      vision: scenarioConfig.vision,
-      mission: scenarioConfig.mission,
-      goal: scenarioConfig.goal(scenarioConfig.winConditions.money, scenarioConfig.winConditions.productQuality)
+      vision: gameConfig.vision,
+      mission: gameConfig.mission,
+      goal: gameConfig.goal(gameConfig.winConditions.money, gameConfig.winConditions.productQuality)
     };
   };
 
-  const description = getScenarioDescription(scenarioConfig.id);
+  const description = getGameDescription(gameConfig.id);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/10 flex items-center justify-center">
       <Card className="max-w-2xl w-full">
         <CardHeader className="text-center">
-          <div className="text-6xl mb-4">{getScenarioEmoji(scenarioConfig.id)}</div>
-          <CardTitle className="text-3xl mb-2">{scenarioConfig.name}</CardTitle>
-          <CardDescription className="text-lg">{scenarioConfig.description}</CardDescription>
+          <div className="text-6xl mb-4">{getGameEmoji(gameConfig.id)}</div>
+          <CardTitle className="text-3xl mb-2">{gameConfig.name}</CardTitle>
+          <CardDescription className="text-lg">{gameConfig.description}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-4">

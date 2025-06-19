@@ -1,16 +1,16 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { GameState, ScenarioConfig } from '@/types/game';
+import { GameState, Game } from '@/types/game';
 import { Banknote, Heart, ArrowUp } from 'lucide-react';
 
 interface GameOverProps {
   endReason: string;
   finalStats: GameState;
   onRestart: () => void;
-  scenarioConfig: ScenarioConfig;
+  gameConfig: Game;
 }
 
-export const GameOver = ({ endReason, finalStats, onRestart, scenarioConfig }: GameOverProps) => {
+export const GameOver = ({ endReason, finalStats, onRestart, gameConfig }: GameOverProps) => {
   const isSuccess = endReason.includes('Congratulations');
   
   const formatMoney = (amount: number) => {
@@ -33,14 +33,14 @@ export const GameOver = ({ endReason, finalStats, onRestart, scenarioConfig }: G
     return Math.round((moneyScore + healthScore + mentalPeaceScore + moraleScore + qualityScore + usersScore) / 6);
   };
 
-  const getScoreRating = (score: number, scenarioId: string) => {
-    if (scenarioId === 'fitflow') {
+  const getScoreRating = (score: number, gameId: string) => {
+    if (gameId === 'fitflow') {
       if (score >= 90) return { text: 'Legendary Founder', color: 'text-primary' };
       if (score >= 80) return { text: 'Successful CEO', color: 'text-primary' };
       if (score >= 70) return { text: 'Good Leader', color: 'text-foreground' };
       if (score >= 60) return { text: 'Average Manager', color: 'text-muted-foreground' };
       return { text: 'Struggling Entrepreneur', color: 'text-destructive' };
-    } else if (scenarioId === 'restaurant') {
+    } else if (gameId === 'restaurant') {
       if (score >= 90) return { text: 'Master Chef', color: 'text-primary' };
       if (score >= 80) return { text: 'Successful Restaurateur', color: 'text-primary' };
       if (score >= 70) return { text: 'Good Owner', color: 'text-foreground' };
@@ -55,8 +55,8 @@ export const GameOver = ({ endReason, finalStats, onRestart, scenarioConfig }: G
     }
   };
 
-  const getRestartButtonText = (scenarioId: string) => {
-    switch (scenarioId) {
+  const getRestartButtonText = (gameId: string) => {
+    switch (gameId) {
       case 'fitflow':
         return 'Start New Company';
       case 'restaurant':
@@ -67,7 +67,7 @@ export const GameOver = ({ endReason, finalStats, onRestart, scenarioConfig }: G
   };
 
   const score = getScore();
-  const rating = getScoreRating(score, scenarioConfig.id);
+  const rating = getScoreRating(score, gameConfig.id);
 
   return (
     <Card className={`border-2 ${isSuccess ? 'border-primary' : 'border-destructive'}`}>
@@ -126,7 +126,7 @@ export const GameOver = ({ endReason, finalStats, onRestart, scenarioConfig }: G
           className="w-full"
           size="lg"
         >
-          {getRestartButtonText(scenarioConfig.id)}
+          {getRestartButtonText(gameConfig.id)}
         </Button>
       </CardContent>
     </Card>

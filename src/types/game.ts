@@ -9,6 +9,8 @@ export interface GameState {
   currentScenario: number;
   gameOver: boolean;
   endReason: string;
+  seenScenarios: number[];
+  scenarioHistory: number[];
 }
 
 export interface Decision {
@@ -29,6 +31,26 @@ export interface Scenario {
   title: string;
   description: string;
   decisions: Decision[];
+  conditions?: {
+    minMoney?: number;
+    maxMoney?: number;
+    minUsers?: number;
+    maxUsers?: number;
+    minHealth?: number;
+    maxHealth?: number;
+    minMentalPeace?: number;
+    maxMentalPeace?: number;
+    minTeamMorale?: number;
+    maxTeamMorale?: number;
+    minProductQuality?: number;
+    maxProductQuality?: number;
+    minDay?: number;
+    maxDay?: number;
+    requiredPreviousScenarios?: number[];
+    excludedPreviousScenarios?: number[];
+  };
+  weight?: number;
+  category?: 'early' | 'mid' | 'late' | 'crisis' | 'opportunity' | 'growth';
 }
 
 export type ScreenType = 'decision' | 'event' | 'status' | 'summary';
@@ -38,7 +60,7 @@ export interface GameScreen {
   content?: any;
 }
 
-export interface ScenarioConfig {
+export interface Game {
   id: string;
   name: string;
   description: string;

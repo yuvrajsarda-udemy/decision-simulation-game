@@ -7,19 +7,21 @@ import { EventScreen } from '@/components/EventScreen';
 import { StatusScreen } from '@/components/StatusScreen';
 import { SummaryScreen } from '@/components/SummaryScreen';
 import { WelcomeScreen } from '@/components/WelcomeScreen';
-import { scenarioManager, getAvailableScenarios } from '@/lib/scenarioManager';
+import { ScenarioDebug } from '@/components/ScenarioDebug';
+import { gameManager, getAvailableGames } from '@/lib/gameManager';
+import { ScenarioSelector } from '@/lib/scenarioSelector';
 import { GameState, Decision, ScreenType } from '@/types/game';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, RotateCcw } from 'lucide-react';
+import { ArrowLeft, RotateCcw, XCircle } from 'lucide-react';
 
 const Game = () => {
   const { gameId } = useParams<{ gameId: string }>();
   const navigate = useNavigate();
   
-  // Get the scenario config for this game
-  const scenarioConfig = gameId ? scenarioManager.getScenario(gameId) : null;
+  // Get the game config for this game
+  const gameConfig = gameId ? gameManager.getGame(gameId) : null;
   
-  if (!scenarioConfig) {
+  if (!gameConfig) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/10 flex items-center justify-center">
         <div className="text-center">
@@ -34,25 +36,37 @@ const Game = () => {
     );
   }
 
-  const [gameState, setGameState] = useState<GameState>(scenarioConfig.initialGameState);
+  const [gameState, setGameState] = useState<GameState>({
+    ...gameConfig.initialGameState,
+    seenScenarios: [],
+    scenarioHistory: []
+  });
   const [currentScreen, setCurrentScreen] = useState<ScreenType>('decision');
   const [showWelcome, setShowWelcome] = useState(true);
 
   // Load game state from session storage
   useEffect(() => {
-    const savedState = sessionStorage.getItem(`${scenarioConfig.id}Game`);
+    const savedState = sessionStorage.getItem(`${gameConfig.id}Game`);
     if (savedState) {
       setGameState(JSON.parse(savedState));
       setShowWelcome(false);
     }
-  }, [scenarioConfig.id]);
+  }, [gameConfig.id]);
 
   // Save game state to session storage
   useEffect(() => {
     if (!showWelcome) {
-      sessionStorage.setItem(`${scenarioConfig.id}Game`, JSON.stringify(gameState));
+      sessionStorage.setItem(`${gameConfig.id}Game`, JSON.stringify(gameState));
     }
-  }, [gameState, showWelcome, scenarioConfig.id]);
+  }, [gameState, showWelcome, gameConfig.id]);
+
+  // Handle quitting the game
+  const handleQuit = () => {
+    // Clear game state from session storage
+    sessionStorage.removeItem(`${gameConfig.id}Game`);
+    // Navigate back to games page
+    navigate('/games');
+  };
 
   const makeDecision = (decision: Decision) => {
     const newState = { ...gameState };
@@ -65,16 +79,36 @@ const Game = () => {
     newState.productQuality += decision.effects.productQuality || 0;
     newState.users += decision.effects.users || 0;
     
-    // Advance week and scenario
+    // Advance week
     newState.day += 1;
-    newState.currentScenario = (newState.currentScenario + 1) % scenarioConfig.scenarios.length;
+    
+    // Track current scenario in history
+    const currentScenarioId = gameConfig.scenarios[gameState.currentScenario].id;
+    newState.scenarioHistory.push(currentScenarioId);
+    if (!newState.seenScenarios.includes(currentScenarioId)) {
+      newState.seenScenarios.push(currentScenarioId);
+    }
+    
+    // Select next scenario using smart selection
+    const nextScenario = ScenarioSelector.selectNextScenario(
+      gameConfig.scenarios,
+      newState,
+      {
+        biasTowardsUnseen: true,
+        // Add some randomness based on game state
+        forceRandom: Math.random() < 0.1 // 10% chance for pure random
+      }
+    );
+    
+    // Find the index of the selected scenario
+    newState.currentScenario = gameConfig.scenarios.findIndex(s => s.id === nextScenario.id);
     
     // Determine next screen type
     const nextScreen = determineNextScreen(newState.day);
     setCurrentScreen(nextScreen);
     
-    // Check game over conditions using scenario config
-    const { gameOverConditions, winConditions } = scenarioConfig;
+    // Check game over conditions using game config
+    const { gameOverConditions, winConditions } = gameConfig;
     
     if (newState.money <= gameOverConditions.money) {
       newState.gameOver = true;
@@ -90,7 +124,7 @@ const Game = () => {
       newState.endReason = 'Your entire team quit due to low morale.';
     } else if (newState.money >= winConditions.money && newState.productQuality >= winConditions.productQuality) {
       newState.gameOver = true;
-      newState.endReason = `Congratulations! You successfully built ${scenarioConfig.name.split(':')[0]} and achieved your goals!`;
+      newState.endReason = `Congratulations! You successfully built ${gameConfig.name.split(':')[0]} and achieved your goals!`;
     }
     
     // Keep stats within bounds
@@ -112,10 +146,14 @@ const Game = () => {
   };
 
   const restartGame = () => {
-    setGameState(scenarioConfig.initialGameState);
+    setGameState({
+      ...gameConfig.initialGameState,
+      seenScenarios: [],
+      scenarioHistory: []
+    });
     setCurrentScreen('decision');
     setShowWelcome(true);
-    sessionStorage.removeItem(`${scenarioConfig.id}Game`);
+    sessionStorage.removeItem(`${gameConfig.id}Game`);
   };
 
   const handleContinue = () => {
@@ -126,21 +164,21 @@ const Game = () => {
     setShowWelcome(false);
   };
 
-  const handleScenarioSelect = () => {
-    const availableScenarios = getAvailableScenarios();
-    const currentIndex = availableScenarios.findIndex(s => s.id === scenarioConfig.id);
-    const nextIndex = (currentIndex + 1) % availableScenarios.length;
-    const nextScenario = availableScenarios[nextIndex];
+  const handleGameSelect = () => {
+    const availableGames = getAvailableGames();
+    const currentIndex = availableGames.findIndex(g => g.id === gameConfig.id);
+    const nextIndex = (currentIndex + 1) % availableGames.length;
+    const nextGame = availableGames[nextIndex];
     
-    // Navigate to the next scenario
-    navigate(`/games/${nextScenario.id}`);
+    // Navigate to the next game
+    navigate(`/games/${nextGame.id}`);
   };
 
-  const currentScenario = scenarioConfig.scenarios[gameState.currentScenario];
+  const currentScenario = gameConfig.scenarios[gameState.currentScenario];
 
   const renderCurrentScreen = () => {
     if (showWelcome) {
-      return <WelcomeScreen onStart={handleStart} scenarioConfig={scenarioConfig} />;
+      return <WelcomeScreen onStart={handleStart} gameConfig={gameConfig} />;
     }
 
     if (gameState.gameOver) {
@@ -149,7 +187,7 @@ const Game = () => {
           endReason={gameState.endReason}
           finalStats={gameState}
           onRestart={restartGame}
-          scenarioConfig={scenarioConfig}
+          gameConfig={gameConfig}
         />
       );
     }
@@ -184,15 +222,23 @@ const Game = () => {
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/10 flex flex-col">
       {/* Header */}
       {!showWelcome && (
-        <div className="p-4 text-left">
+        <div className="p-4 flex justify-between items-center">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => navigate('/games')}
-            className="text-muted-foreground hover:text-foreground self-start"
+            className="text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            {scenarioConfig.name}
+            {gameConfig.name}
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleQuit}
+            className="text-red-400/70 hover:text-red-500/80"
+          >
+            Quit Game
           </Button>
         </div>
       )}
@@ -200,6 +246,15 @@ const Game = () => {
       {/* Main Content */}
       <div className="flex-1 px-4">
         {renderCurrentScreen()}
+        
+        {/* Debug info - only in development */}
+        {!showWelcome && currentScreen === 'decision' && !gameState.gameOver && (
+          <ScenarioDebug 
+            gameState={gameState}
+            currentScenario={currentScenario}
+            allScenarios={gameConfig.scenarios}
+          />
+        )}
       </div>
 
       {/* Stats - Only show below scenario card and not on game over */}
