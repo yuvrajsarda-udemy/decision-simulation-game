@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { GameStats } from '@/components/GameStats';
-import { DecisionCard } from '@/components/DecisionCard';
+import { ScenarioCard } from '@/components/ScenarioCard';
 import { GameOver } from '@/components/GameOver';
 import { EventScreen } from '@/components/EventScreen';
 import { StatusScreen } from '@/components/StatusScreen';
@@ -167,7 +167,7 @@ const Game = () => {
     switch (currentScreen) {
       case 'decision':
         return (
-          <DecisionCard 
+          <ScenarioCard 
             scenario={currentScenario}
             onDecision={makeDecision}
             weekNumber={gameState.day}
@@ -181,7 +181,7 @@ const Game = () => {
         return <SummaryScreen gameState={gameState} onContinue={handleContinue} />;
       default:
         return (
-          <DecisionCard 
+          <ScenarioCard 
             scenario={currentScenario}
             onDecision={makeDecision}
             weekNumber={gameState.day}
@@ -212,8 +212,8 @@ const Game = () => {
         {renderCurrentScreen()}
       </div>
 
-      {/* Stats - Moved below main content */}
-      {!showWelcome && !showScenarioSelector && (
+      {/* Stats - Only show below scenario card and not on game over */}
+      {!showWelcome && !showScenarioSelector && currentScreen === 'decision' && !gameState.gameOver && (
         <div className="px-4 pb-20 pt-4">
           <GameStats gameState={gameState} />
         </div>

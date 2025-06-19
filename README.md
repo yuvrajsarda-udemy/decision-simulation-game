@@ -201,7 +201,8 @@ this.scenarios.set('your-scenario-id', yourScenarioConfig);
 src/
 ├── components/          # Reusable UI components
 │   ├── ui/             # shadcn/ui components
-│   ├── DecisionCard.tsx
+│   ├── ScenarioCard.tsx
+│   ├── ScenarioOptionCard.tsx
 │   ├── GameOver.tsx
 │   ├── GameStats.tsx
 │   ├── Layout.tsx
