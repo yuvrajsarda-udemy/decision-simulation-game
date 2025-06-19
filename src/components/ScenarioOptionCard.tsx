@@ -36,7 +36,9 @@ export const ScenarioOptionCard = ({ decision, onDecision }: ScenarioOptionCardP
   };
 
   const handleDecision = () => {
-    onDecision(decision);
+    setTimeout(() => {
+      onDecision(decision);
+    }, 100);
   };
 
   return (

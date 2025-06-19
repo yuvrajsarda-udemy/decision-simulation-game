@@ -50,13 +50,11 @@ const Games = () => {
                 <CardHeader>
                   <div className="flex items-center gap-3">
                     <span className="text-3xl">{getScenarioEmoji(scenario.id)}</span>
-                    <div>
-                      <CardTitle className="text-xl">{scenario.name}</CardTitle>
-                      <CardDescription className="text-sm">
-                        {scenario.description}
-                      </CardDescription>
-                    </div>
+                    <CardTitle className="text-xl">{scenario.name}</CardTitle>
                   </div>
+                  <CardDescription className="text-sm">
+                    {scenario.description}
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3 text-sm">

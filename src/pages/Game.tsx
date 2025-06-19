@@ -7,7 +7,6 @@ import { EventScreen } from '@/components/EventScreen';
 import { StatusScreen } from '@/components/StatusScreen';
 import { SummaryScreen } from '@/components/SummaryScreen';
 import { WelcomeScreen } from '@/components/WelcomeScreen';
-import { ScenarioSelector } from '@/components/ScenarioSelector';
 import { scenarioManager, getAvailableScenarios } from '@/lib/scenarioManager';
 import { GameState, Decision, ScreenType } from '@/types/game';
 import { Button } from '@/components/ui/button';
@@ -38,7 +37,6 @@ const Game = () => {
   const [gameState, setGameState] = useState<GameState>(scenarioConfig.initialGameState);
   const [currentScreen, setCurrentScreen] = useState<ScreenType>('decision');
   const [showWelcome, setShowWelcome] = useState(true);
-  const [showScenarioSelector, setShowScenarioSelector] = useState(false);
 
   // Load game state from session storage
   useEffect(() => {
@@ -138,17 +136,9 @@ const Game = () => {
     navigate(`/games/${nextScenario.id}`);
   };
 
-  const handleShowScenarioSelector = () => {
-    setShowScenarioSelector(true);
-  };
-
   const currentScenario = scenarioConfig.scenarios[gameState.currentScenario];
 
   const renderCurrentScreen = () => {
-    if (showScenarioSelector) {
-      return <ScenarioSelector onScenarioSelect={handleScenarioSelect} />;
-    }
-
     if (showWelcome) {
       return <WelcomeScreen onStart={handleStart} scenarioConfig={scenarioConfig} />;
     }
@@ -193,7 +183,7 @@ const Game = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/10 flex flex-col">
       {/* Header */}
-      {!showWelcome && !showScenarioSelector && (
+      {!showWelcome && (
         <div className="p-4 text-left">
           <Button
             variant="ghost"
@@ -213,7 +203,7 @@ const Game = () => {
       </div>
 
       {/* Stats - Only show below scenario card and not on game over */}
-      {!showWelcome && !showScenarioSelector && currentScreen === 'decision' && !gameState.gameOver && (
+      {!showWelcome && currentScreen === 'decision' && !gameState.gameOver && (
         <div className="px-4 pb-20">
           <GameStats gameState={gameState} />
         </div>
