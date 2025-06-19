@@ -6,14 +6,14 @@ This folder contains a template for creating new scenarios. To add a new scenari
 
 Create a folder with your scenario name (e.g., `restaurant`, `tech-startup`, `coffee-shop`)
 
-## 2. Create the required files
+## 2. Create the scenario file
 
-### `scenarios.ts`
-Contains all the decision scenarios for your game:
+Create a single `index.ts` file that contains all your scenario data:
 
 ```typescript
-import { Scenario } from '@/types/game';
+import { Scenario, GameState, ScenarioConfig } from '@/types/game';
 
+// All the decision scenarios for your game
 export const yourScenarioScenarios: Scenario[] = [
   {
     id: 1,
@@ -30,19 +30,20 @@ export const yourScenarioScenarios: Scenario[] = [
   },
   // ... more scenarios
 ];
-```
 
-### `config.ts`
-Contains the configuration for your scenario:
-
-```typescript
-import { GameState } from '@/types/game';
-import { yourScenarioScenarios } from './scenarios';
-
+// Complete scenario configuration with metadata and game settings
 export const yourScenarioConfig: ScenarioConfig = {
   id: 'your-scenario-id',
   name: 'Your Scenario Name',
   description: 'Description of your scenario',
+  // UI Metadata
+  emoji: '🚀',
+  colors: 'from-blue-500/10 to-purple-500/10 border-blue-200',
+  vision: "Your vision statement for the scenario...",
+  mission: "Your mission statement for the scenario...",
+  goal: (winMoney: number, winQuality: number) => 
+    `Reach $${(winMoney / 1000).toFixed(0)}K in revenue with high-quality products (${winQuality}%+) to achieve success.`,
+  // Game Configuration
   initialGameState: {
     money: 5000,
     health: 100,
@@ -71,14 +72,6 @@ export const yourScenarioConfig: ScenarioConfig = {
 };
 ```
 
-### `index.ts`
-Export your scenario data:
-
-```typescript
-export { yourScenarioScenarios } from './scenarios';
-export { yourScenarioConfig, type ScenarioConfig } from './config';
-```
-
 ## 3. Register your scenario
 
 Add your scenario to the scenario manager in `src/lib/scenarioManager.ts`:
@@ -104,13 +97,9 @@ private currentScenarioId: string = 'your-scenario-id';
 src/
 ├── data/
 │   ├── fitflow/           # Fitness app scenario
-│   │   ├── scenarios.ts
-│   │   ├── config.ts
-│   │   └── index.ts
+│   │   └── index.ts       # All fitflow data in one file
 │   ├── restaurant/        # Restaurant scenario (example)
-│   │   ├── scenarios.ts
-│   │   ├── config.ts
-│   │   └── index.ts
+│   │   └── index.ts       # All restaurant data in one file
 │   └── template/          # Template for new scenarios
 └── lib/
     └── scenarioManager.ts # Manages all scenarios
@@ -131,10 +120,31 @@ The game state includes these properties that you can use in your scenarios:
 - `gameOver`: Whether the game has ended
 - `endReason`: Reason for game ending
 
+## ScenarioConfig Properties
+
+The ScenarioConfig includes both UI metadata and game configuration:
+
+### UI Metadata:
+- `emoji`: Emoji icon for your scenario (used in cards and headers)
+- `colors`: CSS classes for gradient backgrounds and borders
+- `vision`: Vision statement shown in the welcome screen
+- `mission`: Mission statement shown in the welcome screen
+- `goal`: Function that generates the goal text based on win conditions
+
+### Game Configuration:
+- `id`: Unique identifier for the scenario
+- `name`: Display name for the scenario
+- `description`: Brief description of the scenario
+- `initialGameState`: Starting values for all game properties
+- `scenarios`: Array of all decision scenarios
+- `gameOverConditions`: Values that trigger game over
+- `winConditions`: Values required to win the game
+
 ## Tips for Creating Scenarios
 
 1. **Start Simple**: Begin with 3-5 scenarios to test the flow
 2. **Balance Effects**: Make sure decisions have meaningful trade-offs
 3. **Progressive Difficulty**: Scenarios should get more complex over time
 4. **Realistic Consequences**: Effects should make sense for the decision
-5. **Multiple Paths**: Allow for different strategies to succeed 
+5. **Multiple Paths**: Allow for different strategies to succeed
+6. **Consistent Theming**: Use appropriate emojis and colors that match your scenario theme 

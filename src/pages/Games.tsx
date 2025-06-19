@@ -8,25 +8,13 @@ const Games = () => {
   const availableScenarios = getAvailableScenarios();
 
   const getScenarioEmoji = (scenarioId: string) => {
-    switch (scenarioId) {
-      case 'fitflow':
-        return '🏃‍♀️';
-      case 'restaurant':
-        return '🍽️';
-      default:
-        return '🎮';
-    }
+    const scenario = availableScenarios.find(s => s.id === scenarioId);
+    return scenario?.emoji || '🎮';
   };
 
   const getScenarioColor = (scenarioId: string) => {
-    switch (scenarioId) {
-      case 'fitflow':
-        return 'from-blue-500/10 to-purple-500/10 border-blue-200';
-      case 'restaurant':
-        return 'from-orange-500/10 to-red-500/10 border-orange-200';
-      default:
-        return 'from-gray-500/10 to-gray-600/10 border-gray-200';
-    }
+    const scenario = availableScenarios.find(s => s.id === scenarioId);
+    return scenario?.colors || 'from-gray-500/10 to-gray-600/10 border-gray-200';
   };
 
   const hasSavedGame = (scenarioId: string) => {
@@ -43,7 +31,7 @@ const Games = () => {
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/10 p-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center my-8">
           <h1 className="text-3xl font-bold mb-4">🎮 Decision Games</h1>
           <p className="text-muted-foreground text-lg">
             Choose your adventure and test your decision-making skills

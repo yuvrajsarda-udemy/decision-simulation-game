@@ -227,6 +227,14 @@ export const fitflowConfig: ScenarioConfig = {
   id: 'fitflow',
   name: 'FitFlow: Fitness App Startup',
   description: 'Build and grow your fitness tracking app from a solo developer to a successful startup.',
+  // UI Metadata
+  emoji: '🏃‍♀️',
+  colors: 'from-blue-500/10 to-purple-500/10 border-blue-200',
+  vision: "You're launching FitFlow, a revolutionary fitness app that helps people achieve their health goals through personalized workouts and nutrition tracking.",
+  mission: "Build a thriving fitness platform while maintaining your health, team morale, and mental peace. Every decision matters in this competitive market.",
+  goal: (winMoney: number, winQuality: number) => 
+    `Reach $${(winMoney / 1000000).toFixed(1)}M in revenue with a high-quality product (${winQuality}%+) to achieve startup success.`,
+  // Game Configuration
   initialGameState: {
     money: 10000,
     health: 80,

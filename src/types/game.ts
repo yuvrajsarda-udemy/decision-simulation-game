@@ -42,6 +42,13 @@ export interface ScenarioConfig {
   id: string;
   name: string;
   description: string;
+  // UI Metadata
+  emoji: string;
+  colors: string;
+  vision: string;
+  mission: string;
+  goal: (winMoney: number, winQuality: number) => string;
+  // Game Configuration
   initialGameState: GameState;
   scenarios: Scenario[];
   gameOverConditions: {

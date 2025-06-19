@@ -1,6 +1,5 @@
-import { ScenarioConfig } from '../data/fitflow';
+import { ScenarioConfig } from '@/types/game';
 import { fitflowConfig } from '../data/fitflow';
-
 import { restaurantConfig } from '../data/restaurant';
 
 export interface ScenarioManager {

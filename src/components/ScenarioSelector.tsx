@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { getAvailableScenarios, setCurrentScenario } from '@/lib/scenarioManager';
-import { ScenarioConfig } from '@/data/fitflow';
+import { ScenarioConfig } from '@/types/game';
 
 interface ScenarioSelectorProps {
   onScenarioSelect: () => void;

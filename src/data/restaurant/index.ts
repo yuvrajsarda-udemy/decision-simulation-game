@@ -73,6 +73,14 @@ export const restaurantConfig: ScenarioConfig = {
   id: 'restaurant',
   name: 'Restaurant Empire',
   description: 'Build your restaurant from a small eatery to a culinary empire.',
+  // UI Metadata
+  emoji: '🍽️',
+  colors: 'from-orange-500/10 to-red-500/10 border-orange-200',
+  vision: "You're opening your dream restaurant, a place where culinary excellence meets business savvy. Create memorable dining experiences while building a profitable business.",
+  mission: "Build a successful restaurant empire while managing costs, staff, and customer satisfaction. Every decision affects your restaurant's reputation and profitability.",
+  goal: (winMoney: number, winQuality: number) => 
+    `Reach $${(winMoney / 1000).toFixed(0)}K in revenue with exceptional food quality (${winQuality}%+) to become a culinary success.`,
+  // Game Configuration
   initialGameState: {
     money: 20000,
     health: 100,

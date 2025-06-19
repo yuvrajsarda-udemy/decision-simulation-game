@@ -1,5 +1,5 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScenarioConfig } from '@/types/game';
 
 interface WelcomeScreenProps {
@@ -9,94 +9,52 @@ interface WelcomeScreenProps {
 
 export const WelcomeScreen = ({ onStart, scenarioConfig }: WelcomeScreenProps) => {
   const getScenarioEmoji = (scenarioId: string) => {
-    switch (scenarioId) {
-      case 'fitflow':
-        return '🏃‍♀️';
-      case 'restaurant':
-        return '🍽️';
-      default:
-        return '🎮';
-    }
+    return scenarioConfig.emoji || '🎮';
   };
 
   const getScenarioDescription = (scenarioId: string) => {
-    switch (scenarioId) {
-      case 'fitflow':
-        return {
-          vision: "You're launching FitFlow, a revolutionary fitness app that helps people achieve their health goals through personalized workouts and nutrition tracking.",
-          mission: "Build a thriving fitness platform while maintaining your health, team morale, and mental peace. Every decision matters in this competitive market.",
-          goal: `Reach $${(scenarioConfig.winConditions.money / 1000000).toFixed(1)}M in revenue with a high-quality product (${scenarioConfig.winConditions.productQuality}%+) to achieve startup success.`
-        };
-      case 'restaurant':
-        return {
-          vision: "You're opening your dream restaurant, a place where culinary excellence meets business savvy. Create memorable dining experiences while building a profitable business.",
-          mission: "Build a successful restaurant empire while managing costs, staff, and customer satisfaction. Every decision affects your restaurant's reputation and profitability.",
-          goal: `Reach $${(scenarioConfig.winConditions.money / 1000).toFixed(0)}K in revenue with exceptional food quality (${scenarioConfig.winConditions.productQuality}%+) to become a culinary success.`
-        };
-      default:
-        return {
-          vision: "You're embarking on an exciting business journey. Make strategic decisions to grow your venture while managing various aspects of your business.",
-          mission: "Build a successful business while maintaining balance across all aspects of your operation. Every choice shapes your path to success.",
-          goal: `Reach $${(scenarioConfig.winConditions.money / 1000).toFixed(0)}K in revenue with high-quality products (${scenarioConfig.winConditions.productQuality}%+) to achieve business success.`
-        };
-    }
+    return {
+      vision: scenarioConfig.vision,
+      mission: scenarioConfig.mission,
+      goal: scenarioConfig.goal(scenarioConfig.winConditions.money, scenarioConfig.winConditions.productQuality)
+    };
   };
 
   const description = getScenarioDescription(scenarioConfig.id);
 
   return (
-    <div className="space-y-4 sm:space-y-6 p-2 sm:p-0">
-      <Card>
-        <CardHeader className="space-y-2">
-          <CardTitle className="text-xl sm:text-2xl">
-            {getScenarioEmoji(scenarioConfig.id)} Welcome to {scenarioConfig.name}
-          </CardTitle>
-          <CardDescription className="text-sm sm:text-base">
-            {scenarioConfig.description}
-          </CardDescription>
+    <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/10 flex items-center justify-center p-4">
+      <Card className="max-w-2xl w-full">
+        <CardHeader className="text-center">
+          <div className="text-6xl mb-4">{getScenarioEmoji(scenarioConfig.id)}</div>
+          <CardTitle className="text-3xl mb-2">{scenarioConfig.name}</CardTitle>
+          <CardDescription className="text-lg">{scenarioConfig.description}</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-3 text-xs sm:text-sm">
-            <p>
-              <strong>The Vision:</strong> {description.vision}
-            </p>
-            <p>
-              <strong>Your Mission:</strong> {description.mission}
-            </p>
-            <p>
-              <strong>The Goal:</strong> {description.goal}
-            </p>
-          </div>
-          
-          <div className="bg-primary/10 p-3 sm:p-4 rounded-lg">
-            <h4 className="font-semibold mb-2 text-sm sm:text-base">📊 What You'll Manage:</h4>
-            <div className="grid grid-cols-2 gap-1.5 sm:gap-2 text-xs sm:text-sm">
-              <div className="flex items-center gap-1.5">💰 Business Finances</div>
-              <div className="flex items-center gap-1.5">👥 User Growth</div>
-              <div className="flex items-center gap-1.5">❤️ Your Health</div>
-              <div className="flex items-center gap-1.5">🧘 Mental Peace</div>
-              <div className="flex items-center gap-1.5">🤝 Team Morale</div>
-              <div className="flex items-center gap-1.5">⭐ Product Quality</div>
+        <CardContent className="space-y-6">
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-lg mb-2">🎯 Your Vision</h3>
+              <p className="text-muted-foreground">{description.vision}</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-lg mb-2">⚡ Your Mission</h3>
+              <p className="text-muted-foreground">{description.mission}</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-lg mb-2">🏆 Your Goal</h3>
+              <p className="text-muted-foreground">{description.goal}</p>
             </div>
           </div>
-
-          <div className="text-xs text-muted-foreground">
-            <p>⚠️ <strong>Warning:</strong> Running out of money, losing your health, burning out, or having your entire team quit will end your journey.</p>
+          
+          <div className="pt-4">
+            <Button 
+              onClick={onStart} 
+              className="w-full text-lg py-6"
+              size="lg"
+            >
+              Start Your Journey
+            </Button>
           </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base sm:text-lg">🚀 Ready to Start Your Journey?</CardTitle>
-          <CardDescription className="text-xs sm:text-sm">
-            You have ${scenarioConfig.initialGameState.money.toLocaleString()} in initial funding and a small but dedicated team. The market is waiting for your innovation.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Button onClick={onStart} className="w-full" size="lg">
-            Launch {scenarioConfig.name.split(':')[0]}
-          </Button>
         </CardContent>
       </Card>
     </div>
